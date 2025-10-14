@@ -1,7 +1,7 @@
 ﻿| package |
 package := Package name: 'integrador'.
 package paxVersion: 1;
-	basicComment: ''.
+	basicComment: 'hhh'.
 
 package binaryGlobalNames: (Set new
 	yourself).
