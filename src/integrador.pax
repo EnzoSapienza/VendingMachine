@@ -1,0 +1,18 @@
+﻿| package |
+package := Package name: 'integrador'.
+package paxVersion: 1;
+	basicComment: 'hhh'.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+).
+
+package!
+
+"End of package definition"!
+
