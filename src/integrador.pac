@@ -1,11 +1,21 @@
 ﻿| package |
 package := Package name: 'integrador'.
 package paxVersion: 1;
-	basicComment: ''.
+	basicComment: 'Ctrl+-'.
 
 package classNames
+	add: #Compras;
 	add: #Hospital;
+	add: #ItemCompra;
+	add: #MaquinaCafe;
 	add: #MaquinaExpendedora;
+	add: #MaquinaSnack;
+	add: #Medico;
+	add: #Pago;
+	add: #PagoCredito;
+	add: #PagoQR;
+	add: #PagoTarjeta;
+	add: #Producto;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -21,13 +31,73 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #Compras
+	instanceVariableNames: 'id cliente esGenerico'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Object subclass: #Hospital
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+Object subclass: #ItemCompra
+	instanceVariableNames: 'idCompra idProducto'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Object subclass: #MaquinaExpendedora
+	instanceVariableNames: 'id ubicacion compras'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Medico
+	instanceVariableNames: 'id nombre saldo'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Pago
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Producto
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+MaquinaExpendedora subclass: #MaquinaCafe
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+MaquinaExpendedora subclass: #MaquinaSnack
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Pago subclass: #PagoCredito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Pago subclass: #PagoQR
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Pago subclass: #PagoTarjeta
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -39,37 +109,117 @@ Object subclass: #MaquinaExpendedora
 
 "Classes"!
 
+Compras guid: (GUID fromString: '{cba00593-ee11-47b7-92c9-367c2c530167}')!
+
+Compras comment: ''!
+
+!Compras categoriesForClass!Kernel-Objects! !
+
 Hospital guid: (GUID fromString: '{8d2fe85d-8d61-4e20-ac72-c87540dcc737}')!
 
 Hospital comment: ''!
 
-!Hospital categoriesForClass!Kernel-Objects! !
+!Hospital categoriesForClass!integrador! !
 
 !Hospital methodsFor!
 
-verMaquinasExp
-	^0.! !
+"Source unavailable for this method"! !
 
 !Hospital categoriesForMethods!
 verMaquinasExp!public! !
 !
 
+ItemCompra guid: (GUID fromString: '{35f1706d-1318-45fa-9b0d-91d5ca352f81}')!
+
+ItemCompra comment: ''!
+
+!ItemCompra categoriesForClass!Kernel-Objects! !
+
 MaquinaExpendedora guid: (GUID fromString: '{a06523da-c26c-46c1-a1b7-fea446bf6b2d}')!
 
 MaquinaExpendedora comment: ''!
 
-!MaquinaExpendedora categoriesForClass!Kernel-Objects! !
+!MaquinaExpendedora categoriesForClass!integrador! !
 
-!MaquinaExpendedora methodsFor!
+!MaquinaExpendedora class methodsFor!
 
 new
-	self = MaquinaExpendedora ifTrue: [ 
-		self error: 'MaquinaExpendedora es abstracta y no puede instanciarse directamente' ].
-	^super new.! !
+    self = MaquinaExpendedora ifTrue: [
+        self error: 'La clase MaquinaExpendedora es abstracta y no puede instanciarse' ].
+    ^super new.!
 
-!MaquinaExpendedora categoriesForMethods!
+nknk
+    ^0.! !
+
+!MaquinaExpendedora class categoriesForMethods!
+new!public! !
+nknk!public! !
+!
+
+Medico guid: (GUID fromString: '{a14d2c54-70e9-42df-9d25-4121496c446b}')!
+
+Medico comment: ''!
+
+!Medico categoriesForClass!Kernel-Objects! !
+
+!Medico methodsFor!
+
+getSaldo
+    ^saldo.! !
+
+!Medico categoriesForMethods!
+getSaldo!public! !
+!
+
+Pago guid: (GUID fromString: '{a4936274-1121-4049-9b73-4319c3d9314d}')!
+
+Pago comment: ''!
+
+!Pago categoriesForClass!Kernel-Objects! !
+
+!Pago class methodsFor!
+
+"Source unavailable for this method"! !
+
+!Pago class categoriesForMethods!
 new!public! !
 !
+
+Producto guid: (GUID fromString: '{27f458ec-9c07-4573-aa70-3cc6f84955d3}')!
+
+Producto comment: ''!
+
+!Producto categoriesForClass!Kernel-Objects! !
+
+MaquinaCafe guid: (GUID fromString: '{50a9010d-d5d4-433c-b498-4b2aec432c36}')!
+
+MaquinaCafe comment: ''!
+
+!MaquinaCafe categoriesForClass!integrador! !
+
+MaquinaSnack guid: (GUID fromString: '{df0b6fa9-5874-4b3c-b68b-d30bb8784a30}')!
+
+MaquinaSnack comment: ''!
+
+!MaquinaSnack categoriesForClass!integrador! !
+
+PagoCredito guid: (GUID fromString: '{0e0fe7b7-9a0d-467b-9801-0e1babbe0620}')!
+
+PagoCredito comment: ''!
+
+!PagoCredito categoriesForClass!Kernel-Objects! !
+
+PagoQR guid: (GUID fromString: '{0e8d8b53-a83a-4ec4-aa21-29598404f805}')!
+
+PagoQR comment: ''!
+
+!PagoQR categoriesForClass!Kernel-Objects! !
+
+PagoTarjeta guid: (GUID fromString: '{bb3e76f1-3feb-4486-b7f4-cfe5ef602ce0}')!
+
+PagoTarjeta comment: ''!
+
+!PagoTarjeta categoriesForClass!Kernel-Objects! !
 
 "Binary Globals"!
 
