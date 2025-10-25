@@ -1,0 +1,128 @@
+﻿| package |
+package := Package name: 'integrador'.
+package paxVersion: 1;
+	basicComment: 'Ctrl+-'.
+
+package classNames
+	add: #Compras;
+	add: #Hospital;
+	add: #ItemCompra;
+	add: #MaquinaCafe;
+	add: #MaquinaExpendedora;
+	add: #MaquinaSnack;
+	add: #Medico;
+	add: #Pago;
+	add: #PagoCredito;
+	add: #PagoQR;
+	add: #PagoTarjeta;
+	add: #Producto;
+	add: #Snack;
+	add: #SnackDisponibles;
+	add: #TipoCafe;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #Compras
+	instanceVariableNames: 'id cliente esGenerico'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Hospital
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #ItemCompra
+	instanceVariableNames: 'idCompra idProducto'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #MaquinaExpendedora
+	instanceVariableNames: 'id ubicacion compras'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Medico
+	instanceVariableNames: 'id nombre saldo'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Pago
+	instanceVariableNames: 'id idCompra monto'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Producto
+	instanceVariableNames: 'id nombre precio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #SnackDisponibles
+	instanceVariableNames: 'idSnack stock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+MaquinaExpendedora subclass: #MaquinaCafe
+	instanceVariableNames: 'lecheDisponibleEnMililitros capsulas aguaDisponibleEnMililitros cafesDisponibles'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+MaquinaExpendedora subclass: #MaquinaSnack
+	instanceVariableNames: 'snacksDisponibles'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Pago subclass: #PagoCredito
+	instanceVariableNames: 'idMedico'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Pago subclass: #PagoQR
+	instanceVariableNames: 'link'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Pago subclass: #PagoTarjeta
+	instanceVariableNames: 'numTarjeta'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Producto subclass: #Snack
+	instanceVariableNames: 'marca peso'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Producto subclass: #TipoCafe
+	instanceVariableNames: 'azucarNecesaria lecheNecesaria'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"End of package definition"!
+

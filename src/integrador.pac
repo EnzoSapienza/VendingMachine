@@ -145,7 +145,7 @@ Hospital comment: ''!
 !Hospital methodsFor!
 
 verMaquinasExp
-^0.! !
+	^0! !
 
 !Hospital categoriesForMethods!
 verMaquinasExp!public! !
