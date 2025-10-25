@@ -144,7 +144,8 @@ Hospital comment: ''!
 
 !Hospital methodsFor!
 
-"Source unavailable for this method"! !
+verMaquinasExp
+^0.! !
 
 !Hospital categoriesForMethods!
 verMaquinasExp!public! !
