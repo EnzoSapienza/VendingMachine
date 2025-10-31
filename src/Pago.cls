@@ -12,6 +12,27 @@ Pago comment: ''!
 
 !Pago categoriesForClass!Kernel-Objects! !
 
+!Pago methodsFor!
+
+getCompraId
+^idCompra!
+
+getMonto
+	^monto!
+
+initializeWith: unId monto: unMonto
+	(unId isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
+	(unMonto isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: monto no es un número'].
+	unMonto > 0 ifFalse: [self error: 'Parametro Invalido: monto es negativo'].
+	idCompra := unId.
+	monto := unMonto! !
+
+!Pago categoriesForMethods!
+getCompraId!public! !
+getMonto!public! !
+initializeWith:monto:!private! !
+!
+
 !Pago class methodsFor!
 
 new

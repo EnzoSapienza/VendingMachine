@@ -12,3 +12,31 @@ SnackDisponibles comment: ''!
 
 !SnackDisponibles categoriesForClass!Kernel-Objects! !
 
+!SnackDisponibles methodsFor!
+
+getSnackId
+	^idSnack!
+
+getStock
+	^stock!
+
+initializeWith: unStock
+stock := unStock.! !
+
+!SnackDisponibles categoriesForMethods!
+getSnackId!public! !
+getStock!public! !
+initializeWith:!private! !
+!
+
+!SnackDisponibles class methodsFor!
+
+stock: unStock
+	(unStock isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: Stock no es un número'].
+	unStock > 0 ifFalse: [self error: 'Parametro Invalido: Stock no es un positivo'].
+	^self new initializeWith: unStock! !
+
+!SnackDisponibles class categoriesForMethods!
+stock:!public! !
+!
+

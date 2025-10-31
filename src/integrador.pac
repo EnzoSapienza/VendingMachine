@@ -83,7 +83,7 @@ Object subclass: #SnackDisponibles
 	classInstanceVariableNames: ''!
 
 MaquinaExpendedora subclass: #MaquinaCafe
-	instanceVariableNames: 'lecheDisponibleEnMililitros capsulas aguaDisponibleEnMililitros cafesDisponibles'
+	instanceVariableNames: 'lecheDisponible capsulas aguaDisponible cafesDisponibles'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -199,6 +199,30 @@ MaquinaExpendedora comment: ''!
 
 !MaquinaExpendedora categoriesForClass!integrador! !
 
+!MaquinaExpendedora methodsFor!
+
+getCompras
+	^compras!
+
+getUbicacion
+	^ubicacion!
+
+initializeWith: unaUbicacion compras: unasCompras
+	(unaUbicacion isKindOf: String)
+		ifFalse: [self error: 'Parametro Invalido: La ubicacion no es un string'].
+	(unasCompras isKindOf: OrderedCollection)
+		ifFalse: [self error: 'Parametro Invalido: Las compras no es una colección'].
+	(unasCompras allSatisfy: [:each | each class = Compras])
+		ifFalse: [self error: 'Parametro Invaldo: no-compras encontradas en la lista'].
+	ubicacion := unaUbicacion.
+	compras := unasCompras! !
+
+!MaquinaExpendedora categoriesForMethods!
+getCompras!public! !
+getUbicacion!public! !
+initializeWith:compras:!private! !
+!
+
 !MaquinaExpendedora class methodsFor!
 
 new
@@ -251,6 +275,27 @@ Pago comment: ''!
 
 !Pago categoriesForClass!Kernel-Objects! !
 
+!Pago methodsFor!
+
+getCompraId
+^idCompra!
+
+getMonto
+	^monto!
+
+initializeWith: unId monto: unMonto
+	(unId isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
+	(unMonto isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: monto no es un número'].
+	unMonto > 0 ifFalse: [self error: 'Parametro Invalido: monto es negativo'].
+	idCompra := unId.
+	monto := unMonto! !
+
+!Pago categoriesForMethods!
+getCompraId!public! !
+getMonto!public! !
+initializeWith:monto:!private! !
+!
+
 !Pago class methodsFor!
 
 new
@@ -267,6 +312,24 @@ Producto guid: (GUID fromString: '{27f458ec-9c07-4573-aa70-3cc6f84955d3}')!
 Producto comment: ''!
 
 !Producto categoriesForClass!Kernel-Objects! !
+
+!Producto methodsFor!
+
+getNombre
+	^nombre!
+
+getPrecio
+	^precio!
+
+initializeWithNombre: unNombre precio: unPrecio
+nombre := unNombre.
+precio := unPrecio.! !
+
+!Producto categoriesForMethods!
+getNombre!public! !
+getPrecio!public! !
+initializeWithNombre:precio:!private! !
+!
 
 !Producto class methodsFor!
 
@@ -285,11 +348,103 @@ SnackDisponibles comment: ''!
 
 !SnackDisponibles categoriesForClass!Kernel-Objects! !
 
+!SnackDisponibles methodsFor!
+
+getSnackId
+	^idSnack!
+
+getStock
+	^stock!
+
+initializeWith: unStock
+stock := unStock.! !
+
+!SnackDisponibles categoriesForMethods!
+getSnackId!public! !
+getStock!public! !
+initializeWith:!private! !
+!
+
+!SnackDisponibles class methodsFor!
+
+stock: unStock
+	(unStock isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: Stock no es un número'].
+	unStock > 0 ifFalse: [self error: 'Parametro Invalido: Stock no es un positivo'].
+	^self new initializeWith: unStock! !
+
+!SnackDisponibles class categoriesForMethods!
+stock:!public! !
+!
+
 MaquinaCafe guid: (GUID fromString: '{50a9010d-d5d4-433c-b498-4b2aec432c36}')!
 
 MaquinaCafe comment: ''!
 
 !MaquinaCafe categoriesForClass!integrador! !
+
+!MaquinaCafe methodsFor!
+
+getAguaDisponible
+	^aguaDisponible!
+
+getCafesDisponibles
+	^cafesDisponibles!
+
+getCapsulas
+	^capsulas!
+
+getLecheDisponible
+	^lecheDisponible!
+
+initializeWithUbicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agua: agua cafes: cafes
+	"Validaciones - leche"
+	(leche isKindOf: Integer)
+		ifFalse: [self error: 'Parametro Invalido: Leche en Mililitros no es un entero'].
+	leche > 0 ifFalse: [self error: 'Parametro Invalido: Leche negativa'].
+
+	"Capsulas"
+	(unEntero isKindOf: Integer)
+		ifFalse: [self error: 'Parametro Invalido: La cantidad de capsulas no es entera'].
+	unEntero > 0 ifFalse: [self error: 'Parametro Invalido: Capsulas negativas'].
+
+	"Agua"
+	(agua isKindOf: Integer)
+		ifFalse: [self error: 'Parametro Invalido: Agua en Mililitros no es un entero'].
+	agua > 0 ifFalse: [self error: 'Parametro Invalido: Agua negativa'].
+
+	"Cafes"
+	(cafes isKindOf: OrderedCollection)
+		ifFalse: [self error: 'Parametro Invalido: Los cafés no es una colección ordenada'].
+
+	"Asignaciones"
+	aguaDisponible := agua.
+	lecheDisponible := leche.
+	capsulas := unEntero.
+	cafesDisponibles := cafes.
+	super initializeWith: unaUbicacion compras: unasCompras! !
+
+!MaquinaCafe categoriesForMethods!
+getAguaDisponible!public! !
+getCafesDisponibles!public! !
+getCapsulas!public! !
+getLecheDisponible!public! !
+initializeWithUbicacion:compras:leche:capsulas:agua:cafes:!private! !
+!
+
+!MaquinaCafe class methodsFor!
+
+ubicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agua: agua cafes: cafes
+	^self new
+		initializeWithUbicacion: unaUbicacion
+		compras: unasCompras
+		leche: leche
+		capsulas: unEntero
+		agua: agua
+		cafes: cafes! !
+
+!MaquinaCafe class categoriesForMethods!
+ubicacion:compras:leche:capsulas:agua:cafes:!public! !
+!
 
 MaquinaSnack guid: (GUID fromString: '{df0b6fa9-5874-4b3c-b68b-d30bb8784a30}')!
 
@@ -297,11 +452,68 @@ MaquinaSnack comment: ''!
 
 !MaquinaSnack categoriesForClass!integrador! !
 
+!MaquinaSnack methodsFor!
+
+getSnacksDisponibles
+	^snacksDisponibles select:[:v | v getStock > 0]!
+
+initializeWith: unaUbicacion compras: unasCompras snacksDisponibles: snacks
+	(snacks isKindOf: OrderedCollection)
+		ifFalse: [self error: 'Parametro Invalido: Los Snacks no son una colección ordenada'].
+	(snacks allSatisfy: [:each | each class = SnackDisponibles])
+		ifFalse: [self error: 'Parametro Invalido: Elemento desconocido encontrada en los snack'].
+	snacksDisponibles := snacks.
+	super initializeWith: unaUbicacion compras: unasCompras! !
+
+!MaquinaSnack categoriesForMethods!
+getSnacksDisponibles!public! !
+initializeWith:compras:snacksDisponibles:!private! !
+!
+
+!MaquinaSnack class methodsFor!
+
+ubicacion: unaUbicacion compras: unasCompras snacks: snacks
+	^self new
+		initializeWith: unaUbicacion
+		compras: unasCompras
+		snacksDisponibles: snacks! !
+
+!MaquinaSnack class categoriesForMethods!
+ubicacion:compras:snacks:!public! !
+!
+
 PagoCredito guid: (GUID fromString: '{0e0fe7b7-9a0d-467b-9801-0e1babbe0620}')!
 
 PagoCredito comment: ''!
 
 !PagoCredito categoriesForClass!Kernel-Objects! !
+
+!PagoCredito methodsFor!
+
+getMedicoId
+	^idMedico!
+
+initializeWith: medicoId Compra: unaCompraId monto: unMonto
+	(idMedico isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
+	idMedico := medicoId.
+	super initializeWith: unaCompraId monto: unMonto! !
+
+!PagoCredito categoriesForMethods!
+getMedicoId!public! !
+initializeWith:Compra:monto:!private! !
+!
+
+!PagoCredito class methodsFor!
+
+compra: unaCompraId monto: unMonto medico: idMedico
+	^self new
+		initializeWith: idMedico
+		Compra: unaCompraId
+		monto: unMonto! !
+
+!PagoCredito class categoriesForMethods!
+compra:monto:medico:!public! !
+!
 
 PagoQR guid: (GUID fromString: '{0e8d8b53-a83a-4ec4-aa21-29598404f805}')!
 
@@ -309,11 +521,66 @@ PagoQR comment: ''!
 
 !PagoQR categoriesForClass!Kernel-Objects! !
 
+!PagoQR methodsFor!
+
+getLink
+	^link!
+
+initializeWith: unLink Compra: unaCompraId monto: unMonto
+	(unLink isKindOf: String) ifFalse: [self error: 'Parametro Invalido: el link no es un string'].
+	link := unLink.
+	super initializeWith: unaCompraId monto: unMonto! !
+
+!PagoQR categoriesForMethods!
+getLink!public! !
+initializeWith:Compra:monto:!private! !
+!
+
+!PagoQR class methodsFor!
+
+compra: unaCompraId monto: unMonto link: unLink
+	^self new
+		initializeWith: unLink
+		Compra: unaCompraId
+		monto: unMonto! !
+
+!PagoQR class categoriesForMethods!
+compra:monto:link:!public! !
+!
+
 PagoTarjeta guid: (GUID fromString: '{bb3e76f1-3feb-4486-b7f4-cfe5ef602ce0}')!
 
 PagoTarjeta comment: ''!
 
 !PagoTarjeta categoriesForClass!Kernel-Objects! !
+
+!PagoTarjeta methodsFor!
+
+getTarjeta
+	^numTarjeta!
+
+initializeWith: unaTarjeta Compra: unaCompraId monto: unMonto
+	(unaTarjeta isKindOf: Integer)
+		ifFalse: [self error: 'Parametro Invalido: la tarjeta no es un entero'].
+	numTarjeta := unaTarjeta.
+	super initializeWith: unaCompraId monto: unMonto! !
+
+!PagoTarjeta categoriesForMethods!
+getTarjeta!public! !
+initializeWith:Compra:monto:!private! !
+!
+
+!PagoTarjeta class methodsFor!
+
+compra: unaCompraId monto: unMonto tarjeta: unaTarjeta
+	^self new
+		initializeWith: unaTarjeta
+		Compra: unaCompraId
+		monto: unMonto! !
+
+!PagoTarjeta class categoriesForMethods!
+compra:monto:tarjeta:!public! !
+!
 
 Snack guid: (GUID fromString: '{3f66b3cb-debd-42e1-a656-54f5d11f97a3}')!
 
@@ -321,11 +588,82 @@ Snack comment: ''!
 
 !Snack categoriesForClass!Kernel-Objects! !
 
+!Snack methodsFor!
+
+getMarca
+	^marca!
+
+getPeso
+	^peso!
+
+initializeWithNombre: unNombre precio: unPrecio marca: unaMarca peso: unPeso
+	(unPeso isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: el peso no es un número'].
+	unPeso > 0 ifFalse: [self error: 'Parametro Invalido: el peso no es mayor que 0'].
+	(unaMarca isKindOf: String) ifFalse: [self error: 'Parametro Invalido: la marca no es un string'].
+	peso := unPeso.
+	marca := unaMarca.
+	super initializeWithNombre: unNombre precio: unPrecio! !
+
+!Snack categoriesForMethods!
+getMarca!public! !
+getPeso!public! !
+initializeWithNombre:precio:marca:peso:!private! !
+!
+
+!Snack class methodsFor!
+
+nombre: unNombre precio: unPrecio marca: unaMarca peso: unPeso
+	^self new
+		initializeWithNombre: unNombre
+		precio: unPrecio
+		marca: unaMarca
+		peso: unPeso! !
+
+!Snack class categoriesForMethods!
+nombre:precio:marca:peso:!public! !
+!
+
 TipoCafe guid: (GUID fromString: '{344f7eb8-4991-41bd-933e-c383b17f8eb8}')!
 
 TipoCafe comment: ''!
 
 !TipoCafe categoriesForClass!Kernel-Objects! !
+
+!TipoCafe methodsFor!
+
+getAzucarNecesaria
+	^azucarNecesaria!
+
+getLecheNecesaria
+	^lecheNecesaria!
+
+initializeWithNombre: unNombre precio: unPrecio azucar: azucar leche: leche
+	(azucar isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: la azucar no es un entero'].
+	azucar > 0 ifFalse: [self error: 'Parametro Invalido: la azucar no es mayor que 0'].
+	(leche isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: la leche no es un número'].
+	leche > 0 ifFalse: [self error: 'Parametro Invalido: la leche no es mayor que 0'].
+	azucarNecesaria := azucar.
+	lecheNecesaria := leche.
+	super initializeWithNombre: unNombre precio: unPrecio! !
+
+!TipoCafe categoriesForMethods!
+getAzucarNecesaria!public! !
+getLecheNecesaria!public! !
+initializeWithNombre:precio:azucar:leche:!private! !
+!
+
+!TipoCafe class methodsFor!
+
+nombre: unNombre precio: unPrecio azucar: azucar leche: leche
+	^self new
+		initializeWithNombre: unNombre
+		precio: unPrecio
+		azucar: azucar
+		leche: leche! !
+
+!TipoCafe class categoriesForMethods!
+nombre:precio:azucar:leche:!public! !
+!
 
 "Binary Globals"!
 

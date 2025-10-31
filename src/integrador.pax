@@ -83,7 +83,7 @@ Object subclass: #SnackDisponibles
 	classInstanceVariableNames: ''!
 
 MaquinaExpendedora subclass: #MaquinaCafe
-	instanceVariableNames: 'lecheDisponibleEnMililitros capsulas aguaDisponibleEnMililitros cafesDisponibles'
+	instanceVariableNames: 'lecheDisponible capsulas aguaDisponible cafesDisponibles'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

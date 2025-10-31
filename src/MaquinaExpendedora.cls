@@ -12,6 +12,30 @@ MaquinaExpendedora comment: ''!
 
 !MaquinaExpendedora categoriesForClass!integrador! !
 
+!MaquinaExpendedora methodsFor!
+
+getCompras
+	^compras!
+
+getUbicacion
+	^ubicacion!
+
+initializeWith: unaUbicacion compras: unasCompras
+	(unaUbicacion isKindOf: String)
+		ifFalse: [self error: 'Parametro Invalido: La ubicacion no es un string'].
+	(unasCompras isKindOf: OrderedCollection)
+		ifFalse: [self error: 'Parametro Invalido: Las compras no es una colección'].
+	(unasCompras allSatisfy: [:each | each class = Compras])
+		ifFalse: [self error: 'Parametro Invaldo: no-compras encontradas en la lista'].
+	ubicacion := unaUbicacion.
+	compras := unasCompras! !
+
+!MaquinaExpendedora categoriesForMethods!
+getCompras!public! !
+getUbicacion!public! !
+initializeWith:compras:!private! !
+!
+
 !MaquinaExpendedora class methodsFor!
 
 new

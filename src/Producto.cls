@@ -12,6 +12,24 @@ Producto comment: ''!
 
 !Producto categoriesForClass!Kernel-Objects! !
 
+!Producto methodsFor!
+
+getNombre
+	^nombre!
+
+getPrecio
+	^precio!
+
+initializeWithNombre: unNombre precio: unPrecio
+nombre := unNombre.
+precio := unPrecio.! !
+
+!Producto categoriesForMethods!
+getNombre!public! !
+getPrecio!public! !
+initializeWithNombre:precio:!private! !
+!
+
 !Producto class methodsFor!
 
 new
