@@ -136,6 +136,42 @@ Compras comment: ''!
 
 !Compras categoriesForClass!Kernel-Objects! !
 
+!Compras methodsFor!
+
+esGenerico
+^esGenerico.!
+
+getCliente
+^cliente.!
+
+getId
+^id.!
+
+initializeWith: unCliente generic: unBooleano
+cliente := unCliente.
+esGenerico := unBooleano.! !
+
+!Compras categoriesForMethods!
+esGenerico!public! !
+getCliente!public! !
+getId!public! !
+initializeWith:generic:!private! !
+!
+
+!Compras class methodsFor!
+
+cliente: unCliente
+(unCliente class = Medico) ifFalse: [self error: 'Atributo Inválido'].
+^self new initializeWith: unCliente generic: false.!
+
+generico
+^((self new) initializeWith: nil generic: true)! !
+
+!Compras class categoriesForMethods!
+cliente:!public! !
+generico!public! !
+!
+
 Hospital guid: (GUID fromString: '{8d2fe85d-8d61-4e20-ac72-c87540dcc737}')!
 
 Hospital comment: ''!
@@ -182,11 +218,31 @@ Medico comment: ''!
 
 !Medico methodsFor!
 
+getNombre
+^nombre.!
+
 getSaldo
-    ^saldo.! !
+    ^saldo.!
+
+initializeWith: unNombre saldo: unSaldo
+	nombre := unNombre.
+	saldo := unSaldo! !
 
 !Medico categoriesForMethods!
+getNombre!public! !
 getSaldo!public! !
+initializeWith:saldo:!private! !
+!
+
+!Medico class methodsFor!
+
+nombre: unNombre saldo: unSaldo
+(unNombre isKindOf: String) ifFalse: [self error: 'Parametro Invalido'].
+(unSaldo isKindOf: Number) ifFalse: [self error: 'Parametro Invalido'].
+^self new initializeWith: unNombre saldo: unSaldo.! !
+
+!Medico class categoriesForMethods!
+nombre:saldo:!public! !
 !
 
 Pago guid: (GUID fromString: '{a4936274-1121-4049-9b73-4319c3d9314d}')!

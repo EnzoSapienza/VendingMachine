@@ -14,10 +14,30 @@ Medico comment: ''!
 
 !Medico methodsFor!
 
+getNombre
+^nombre.!
+
 getSaldo
-    ^saldo.! !
+    ^saldo.!
+
+initializeWith: unNombre saldo: unSaldo
+	nombre := unNombre.
+	saldo := unSaldo! !
 
 !Medico categoriesForMethods!
+getNombre!public! !
 getSaldo!public! !
+initializeWith:saldo:!private! !
+!
+
+!Medico class methodsFor!
+
+nombre: unNombre saldo: unSaldo
+(unNombre isKindOf: String) ifFalse: [self error: 'Parametro Invalido'].
+(unSaldo isKindOf: Number) ifFalse: [self error: 'Parametro Invalido'].
+^self new initializeWith: unNombre saldo: unSaldo.! !
+
+!Medico class categoriesForMethods!
+nombre:saldo:!public! !
 !
 
