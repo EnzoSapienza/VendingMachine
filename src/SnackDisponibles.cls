@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SnackDisponibles
-	instanceVariableNames: 'idSnack stock'
+	instanceVariableNames: 'idSnack Stock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -18,10 +18,10 @@ getSnackId
 	^idSnack!
 
 getStock
-	^stock!
+	^Stock!
 
 initializeWith: unStock
-stock := unStock.! !
+Stock := unStock.! !
 
 !SnackDisponibles categoriesForMethods!
 getSnackId!public! !

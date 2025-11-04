@@ -88,7 +88,7 @@ Object subclass: #Producto
 	classInstanceVariableNames: ''!
 
 Object subclass: #SnackDisponibles
-	instanceVariableNames: 'idSnack stock'
+	instanceVariableNames: 'idSnack Stock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
