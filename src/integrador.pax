@@ -4,6 +4,7 @@ package paxVersion: 1;
 	basicComment: 'Ctrl+-'.
 
 package classNames
+	add: #AbstractTabla;
 	add: #Compras;
 	add: #Hospital;
 	add: #ItemCompra;
@@ -18,6 +19,9 @@ package classNames
 	add: #Producto;
 	add: #Snack;
 	add: #SnackDisponibles;
+	add: #TablaCompras;
+	add: #TablaMedicos;
+	add: #TablaProductos;
 	add: #TipoCafe;
 	yourself.
 
@@ -33,6 +37,12 @@ package setPrerequisites: #(
 package!
 
 "Class Definitions"!
+
+Object subclass: #AbstractTabla
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 
 Object subclass: #Compras
 	instanceVariableNames: 'id cliente esGenerico'
@@ -65,7 +75,7 @@ Object subclass: #Medico
 	classInstanceVariableNames: ''!
 
 Object subclass: #Pago
-	instanceVariableNames: 'id idCompra monto'
+	instanceVariableNames: 'id idCompra monto cobrado'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -79,6 +89,24 @@ Object subclass: #Producto
 Object subclass: #SnackDisponibles
 	instanceVariableNames: 'idSnack stock'
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaCompras
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaMedicos
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaProductos
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

@@ -25,13 +25,19 @@ getId
 
 initializeWith: unCliente generic: unBooleano
 cliente := unCliente.
-esGenerico := unBooleano.! !
+esGenerico := unBooleano.!
+
+setId: unId
+	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	unId <= 0 ifTrue: [self error: 'Id invalido'].
+	id = nil ifTrue: [id := unId]! !
 
 !Compras categoriesForMethods!
 esGenerico!public! !
 getCliente!public! !
 getId!public! !
 initializeWith:generic:!private! !
+setId:!public! !
 !
 
 !Compras class methodsFor!
@@ -40,11 +46,11 @@ cliente: unCliente
 (unCliente class = Medico) ifFalse: [self error: 'Atributo Inválido'].
 ^self new initializeWith: unCliente generic: false.!
 
-generico
-^((self new) initializeWith: nil generic: true)! !
+nuevoGenerico
+	^self new initializeWith: nil generic: true! !
 
 !Compras class categoriesForMethods!
 cliente:!public! !
-generico!public! !
+nuevoGenerico!public! !
 !
 

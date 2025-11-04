@@ -1,0 +1,36 @@
+﻿"Filed out from Dolphin Smalltalk"!
+
+AbstractTabla subclass: #TablaCompras
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+TablaCompras guid: (GUID fromString: '{e4d02a7a-13dd-48f8-82f1-4efa534b8323}')!
+
+TablaCompras comment: ''!
+
+!TablaCompras categoriesForClass!Kernel-Objects! !
+
+!TablaCompras class methodsFor!
+
+addCompra: compra
+	(compra isKindOf: Compras) ifFalse: [self error: 'No es una compra'].
+	self establecerTabla.
+	compra setId: Id.
+	Collection add: compra.
+	Id := Id + 1.!
+
+establecerTabla
+	"Private - Instanciar tabla si no existe"
+
+	Collection = nil
+		ifTrue: 
+			[Collection := OrderedCollection new.
+			Id := 1]! !
+
+!TablaCompras class categoriesForMethods!
+addCompra:!public! !
+establecerTabla!private! !
+!
+

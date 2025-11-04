@@ -14,6 +14,9 @@ Medico comment: ''!
 
 !Medico methodsFor!
 
+getId
+^id.!
+
 getNombre
 ^nombre.!
 
@@ -22,12 +25,23 @@ getSaldo
 
 initializeWith: unNombre saldo: unSaldo
 	nombre := unNombre.
-	saldo := unSaldo! !
+	saldo := unSaldo!
+
+printString
+	^'Nombre: ' , nombre , ' Saldo: ' , saldo printString , ' ID: ', id printString!
+
+setId: unId
+	(unId isKindOf: Integer) ifFalse: [self error: 'Id no es un entero'].
+	unId <= 0 ifTrue: [self error: 'Id es negativo'].
+	id = nil ifTrue: [id := unId]! !
 
 !Medico categoriesForMethods!
+getId!public! !
 getNombre!public! !
 getSaldo!public! !
 initializeWith:saldo:!private! !
+printString!public! !
+setId:!public! !
 !
 
 !Medico class methodsFor!

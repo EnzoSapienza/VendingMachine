@@ -4,6 +4,7 @@ package paxVersion: 1;
 	basicComment: 'Ctrl+-'.
 
 package classNames
+	add: #AbstractTabla;
 	add: #Compras;
 	add: #Hospital;
 	add: #ItemCompra;
@@ -18,6 +19,9 @@ package classNames
 	add: #Producto;
 	add: #Snack;
 	add: #SnackDisponibles;
+	add: #TablaCompras;
+	add: #TablaMedicos;
+	add: #TablaProductos;
 	add: #TipoCafe;
 	yourself.
 
@@ -33,6 +37,12 @@ package setPrerequisites: #(
 package!
 
 "Class Definitions"!
+
+Object subclass: #AbstractTabla
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
 
 Object subclass: #Compras
 	instanceVariableNames: 'id cliente esGenerico'
@@ -65,7 +75,7 @@ Object subclass: #Medico
 	classInstanceVariableNames: ''!
 
 Object subclass: #Pago
-	instanceVariableNames: 'id idCompra monto'
+	instanceVariableNames: 'id idCompra monto cobrado'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -79,6 +89,24 @@ Object subclass: #Producto
 Object subclass: #SnackDisponibles
 	instanceVariableNames: 'idSnack stock'
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaCompras
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaMedicos
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaProductos
+	instanceVariableNames: ''
+	classVariableNames: 'Collection Id'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -130,6 +158,26 @@ Producto subclass: #TipoCafe
 
 "Classes"!
 
+AbstractTabla guid: (GUID fromString: '{3bf80c10-84e7-44d9-ac83-89174c1bb6a1}')!
+
+AbstractTabla comment: ''!
+
+!AbstractTabla categoriesForClass!Kernel-Objects! !
+
+!AbstractTabla class methodsFor!
+
+getPorId: unId
+	self establecerTabla.
+	^Collection detect: [:each | each getId = unId]!
+
+new
+	self error: 'La clase ' , self printString , ' es estática y no debe instanciarte'! !
+
+!AbstractTabla class categoriesForMethods!
+getPorId:!public! !
+new!public! !
+!
+
 Compras guid: (GUID fromString: '{cba00593-ee11-47b7-92c9-367c2c530167}')!
 
 Compras comment: ''!
@@ -149,13 +197,19 @@ getId
 
 initializeWith: unCliente generic: unBooleano
 cliente := unCliente.
-esGenerico := unBooleano.! !
+esGenerico := unBooleano.!
+
+setId: unId
+	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	unId <= 0 ifTrue: [self error: 'Id invalido'].
+	id = nil ifTrue: [id := unId]! !
 
 !Compras categoriesForMethods!
 esGenerico!public! !
 getCliente!public! !
 getId!public! !
 initializeWith:generic:!private! !
+setId:!public! !
 !
 
 !Compras class methodsFor!
@@ -164,12 +218,12 @@ cliente: unCliente
 (unCliente class = Medico) ifFalse: [self error: 'Atributo Inválido'].
 ^self new initializeWith: unCliente generic: false.!
 
-generico
-^((self new) initializeWith: nil generic: true)! !
+nuevoGenerico
+	^self new initializeWith: nil generic: true! !
 
 !Compras class categoriesForMethods!
 cliente:!public! !
-generico!public! !
+nuevoGenerico!public! !
 !
 
 Hospital guid: (GUID fromString: '{8d2fe85d-8d61-4e20-ac72-c87540dcc737}')!
@@ -204,6 +258,9 @@ MaquinaExpendedora comment: ''!
 getCompras
 	^compras!
 
+getId
+	^id!
+
 getUbicacion
 	^ubicacion!
 
@@ -215,12 +272,19 @@ initializeWith: unaUbicacion compras: unasCompras
 	(unasCompras allSatisfy: [:each | each class = Compras])
 		ifFalse: [self error: 'Parametro Invaldo: no-compras encontradas en la lista'].
 	ubicacion := unaUbicacion.
-	compras := unasCompras! !
+	compras := unasCompras!
+
+setId: unId
+	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	unId <= 0 ifTrue: [self error: 'Id invalido'].
+	id := unId! !
 
 !MaquinaExpendedora categoriesForMethods!
 getCompras!public! !
+getId!public! !
 getUbicacion!public! !
 initializeWith:compras:!private! !
+setId:!public! !
 !
 
 !MaquinaExpendedora class methodsFor!
@@ -242,6 +306,9 @@ Medico comment: ''!
 
 !Medico methodsFor!
 
+getId
+^id.!
+
 getNombre
 ^nombre.!
 
@@ -250,12 +317,23 @@ getSaldo
 
 initializeWith: unNombre saldo: unSaldo
 	nombre := unNombre.
-	saldo := unSaldo! !
+	saldo := unSaldo!
+
+printString
+	^'Nombre: ' , nombre , ' Saldo: ' , saldo printString , ' ID: ', id printString!
+
+setId: unId
+	(unId isKindOf: Integer) ifFalse: [self error: 'Id no es un entero'].
+	unId <= 0 ifTrue: [self error: 'Id es negativo'].
+	id = nil ifTrue: [id := unId]! !
 
 !Medico categoriesForMethods!
+getId!public! !
 getNombre!public! !
 getSaldo!public! !
 initializeWith:saldo:!private! !
+printString!public! !
+setId:!public! !
 !
 
 !Medico class methodsFor!
@@ -277,8 +355,14 @@ Pago comment: ''!
 
 !Pago methodsFor!
 
+cobrar
+(self = Pago) ifTrue: [self error: 'Pago Abstracto no debe implementar este método'. ].!
+
 getCompraId
 ^idCompra!
+
+getId
+	^id!
 
 getMonto
 	^monto!
@@ -288,12 +372,21 @@ initializeWith: unId monto: unMonto
 	(unMonto isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: monto no es un número'].
 	unMonto > 0 ifFalse: [self error: 'Parametro Invalido: monto es negativo'].
 	idCompra := unId.
-	monto := unMonto! !
+	monto := unMonto.
+	cobrado := false.!
+
+setId: unId
+	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	unId <= 0 ifTrue: [self error: 'Id invalido'].
+	id = nil ifTrue: [id := unId]! !
 
 !Pago categoriesForMethods!
+cobrar!public! !
 getCompraId!public! !
+getId!public! !
 getMonto!public! !
 initializeWith:monto:!private! !
+setId:!public! !
 !
 
 !Pago class methodsFor!
@@ -315,6 +408,9 @@ Producto comment: ''!
 
 !Producto methodsFor!
 
+getId
+	^id!
+
 getNombre
 	^nombre!
 
@@ -323,12 +419,19 @@ getPrecio
 
 initializeWithNombre: unNombre precio: unPrecio
 nombre := unNombre.
-precio := unPrecio.! !
+precio := unPrecio.!
+
+setId: unId
+	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	unId <= 0 ifTrue: [self error: 'Id invalido'].
+	id = nil ifTrue: [id := unId]! !
 
 !Producto categoriesForMethods!
+getId!public! !
 getNombre!public! !
 getPrecio!public! !
 initializeWithNombre:precio:!private! !
+setId:!public! !
 !
 
 !Producto class methodsFor!
@@ -374,6 +477,90 @@ stock: unStock
 
 !SnackDisponibles class categoriesForMethods!
 stock:!public! !
+!
+
+TablaCompras guid: (GUID fromString: '{e4d02a7a-13dd-48f8-82f1-4efa534b8323}')!
+
+TablaCompras comment: ''!
+
+!TablaCompras categoriesForClass!Kernel-Objects! !
+
+!TablaCompras class methodsFor!
+
+addCompra: compra
+	(compra isKindOf: Compras) ifFalse: [self error: 'No es una compra'].
+	self establecerTabla.
+	compra setId: Id.
+	Collection add: compra.
+	Id := Id + 1.!
+
+establecerTabla
+	"Private - Instanciar tabla si no existe"
+
+	Collection = nil
+		ifTrue: 
+			[Collection := OrderedCollection new.
+			Id := 1]! !
+
+!TablaCompras class categoriesForMethods!
+addCompra:!public! !
+establecerTabla!private! !
+!
+
+TablaMedicos guid: (GUID fromString: '{9492eed8-3e56-45d6-b9f2-875a1020791e}')!
+
+TablaMedicos comment: ''!
+
+!TablaMedicos categoriesForClass!Kernel-Objects! !
+
+!TablaMedicos class methodsFor!
+
+addMedico: medico
+	(medico isKindOf: Medico) ifFalse: [self error: 'No es un medico'].
+	self establecerTabla.
+	medico setId: Id.
+	Collection add: medico.
+	Id := Id + 1!
+
+establecerTabla
+	"Private - Instanciar tabla si no existe"
+
+	Collection = nil
+		ifTrue: 
+			[Collection := OrderedCollection new.
+			Id := 1]! !
+
+!TablaMedicos class categoriesForMethods!
+addMedico:!public! !
+establecerTabla!private! !
+!
+
+TablaProductos guid: (GUID fromString: '{75884272-4ebb-4a0e-a867-576c236e7169}')!
+
+TablaProductos comment: ''!
+
+!TablaProductos categoriesForClass!Kernel-Objects! !
+
+!TablaProductos class methodsFor!
+
+addProducto: producto
+	(producto isKindOf: Producto) ifFalse: [self error: 'No es un producto'].
+	self establecerTabla.
+	producto setId: Id.
+	Collection add: producto.
+	Id := Id + 1.!
+
+establecerTabla
+	"Private - Instanciar tabla si no existe"
+
+	Collection = nil
+		ifTrue: 
+			[Collection := OrderedCollection new.
+			Id := 1]! !
+
+!TablaProductos class categoriesForMethods!
+addProducto:!public! !
+establecerTabla!private! !
 !
 
 MaquinaCafe guid: (GUID fromString: '{50a9010d-d5d4-433c-b498-4b2aec432c36}')!

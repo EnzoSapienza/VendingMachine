@@ -14,6 +14,9 @@ Producto comment: ''!
 
 !Producto methodsFor!
 
+getId
+	^id!
+
 getNombre
 	^nombre!
 
@@ -22,12 +25,19 @@ getPrecio
 
 initializeWithNombre: unNombre precio: unPrecio
 nombre := unNombre.
-precio := unPrecio.! !
+precio := unPrecio.!
+
+setId: unId
+	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	unId <= 0 ifTrue: [self error: 'Id invalido'].
+	id = nil ifTrue: [id := unId]! !
 
 !Producto categoriesForMethods!
+getId!public! !
 getNombre!public! !
 getPrecio!public! !
 initializeWithNombre:precio:!private! !
+setId:!public! !
 !
 
 !Producto class methodsFor!
