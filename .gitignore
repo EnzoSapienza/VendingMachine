@@ -1,6 +1,7 @@
 # changes file
 *.changes
 *.chg
+*.pac
 
 # system image
 *.image

@@ -23,15 +23,6 @@ getNombre
 getPrecio
 	^precio!
 
-getStock
-^stock.!
-
-getStockMinimo
-^stockminimo.!
-
-getTipo
-^tipo.!
-
 initializeWithNombre: unNombre precio: unPrecio
 nombre := unNombre.
 precio := unPrecio.!
@@ -43,24 +34,8 @@ setId: unId
 
 !Producto categoriesForMethods!
 getId!public! !
-
-setNombre: unNombre
-nombre := unNombre.!
-
-setPrecio: unPrecio
-precio := unPrecio.!
-
-setStock: unStock
-stock := unStock.!
-
-setStockMinimo: unStock
-stockminimo := unStock.!
-
-!Producto categoriesForMethods!
 getNombre!public! !
 getPrecio!public! !
-getStock!public! !
-getStockMinimo!public! !
 initializeWithNombre:precio:!private! !
 setId:!public! !
 !
