@@ -12,3 +12,21 @@ ItemCompra comment: ''!
 
 !ItemCompra categoriesForClass!Kernel-Objects! !
 
+!ItemCompra methodsFor!
+
+getIdCompra
+    ^idCompra.!
+
+getIdProducto
+    ^idProducto.!
+
+initializeWith: unIdCompra producto: unIdProducto
+    idCompra := unIdCompra.
+    idProducto := unIdProducto.! !
+
+!ItemCompra categoriesForMethods!
+getIdCompra!public! !
+getIdProducto!public! !
+initializeWith:producto:!private! !
+!
+

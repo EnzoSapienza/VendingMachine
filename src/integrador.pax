@@ -34,8 +34,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
+	'C:\Users\pc\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
+	'C:\Users\pc\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
 
 package!
 
