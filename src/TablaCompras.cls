@@ -2,7 +2,7 @@
 
 AbstractTabla subclass: #TablaCompras
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -19,18 +19,9 @@ addCompra: compra
 	self establecerTabla.
 	compra setId: Id.
 	Collection add: compra.
-	Id := Id + 1.!
-
-establecerTabla
-	"Private - Instanciar tabla si no existe"
-
-	Collection = nil
-		ifTrue: 
-			[Collection := OrderedCollection new.
-			Id := 1]! !
+	Id := Id + 1.! !
 
 !TablaCompras class categoriesForMethods!
 addCompra:!public! !
-establecerTabla!private! !
 !
 

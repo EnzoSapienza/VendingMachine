@@ -32,7 +32,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin').
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
 
 package!
 
@@ -42,16 +43,16 @@ Object subclass: #AbstractTabla
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: ''!
+	classInstanceVariableNames: 'Collection Id'!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico'
+	instanceVariableNames: 'id cliente esGenerico fecha'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Object subclass: #Hospital
-	instanceVariableNames: ''
+	instanceVariableNames: 'nombre maquinasExp verRecaudoSemanal'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -94,19 +95,19 @@ Object subclass: #SnackDisponibles
 
 AbstractTabla subclass: #TablaCompras
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 AbstractTabla subclass: #TablaMedicos
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 AbstractTabla subclass: #TablaProductos
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -166,6 +167,17 @@ AbstractTabla comment: ''!
 
 !AbstractTabla class methodsFor!
 
+establecerTabla
+	"Private - Instanciar tabla si no existe"
+
+	Collection = nil
+		ifTrue: 
+			[Collection := OrderedCollection new.
+			Id := 1]!
+
+getAll
+	^Collection!
+
 getPorId: unId
 	self establecerTabla.
 	^Collection detect: [:each | each getId = unId]!
@@ -174,6 +186,8 @@ new
 	self error: 'La clase ' , self printString , ' es estática y no debe instanciarte'! !
 
 !AbstractTabla class categoriesForMethods!
+establecerTabla!private! !
+getAll!public! !
 getPorId:!public! !
 new!public! !
 !
@@ -192,12 +206,21 @@ esGenerico
 getCliente
 ^cliente.!
 
+getFecha
+^fecha!
+
 getId
 ^id.!
 
-initializeWith: unCliente generic: unBooleano
-cliente := unCliente.
-esGenerico := unBooleano.!
+initializeWith: unCliente generic: unBooleano fecha: unaFecha
+	unCliente = nil | (unCliente isKindOf: Medico)
+		ifFalse: [self error: 'El cliente no es un dato nulo o un medico'].
+	(unBooleano isKindOf: Boolean)
+		ifFalse: [self error: 'No se aclaró si el cliente es generico o no'].
+	(unaFecha isKindOf: Date) ifFalse: [self error: 'Fecha no valida'].
+	cliente := unCliente.
+	esGenerico := unBooleano.
+	fecha := unaFecha!
 
 setId: unId
 	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
@@ -207,23 +230,30 @@ setId: unId
 !Compras categoriesForMethods!
 esGenerico!public! !
 getCliente!public! !
+getFecha!public! !
 getId!public! !
-initializeWith:generic:!private! !
+initializeWith:generic:fecha:!private! !
 setId:!public! !
 !
 
 !Compras class methodsFor!
 
-cliente: unCliente
-(unCliente class = Medico) ifFalse: [self error: 'Atributo Inválido'].
-^self new initializeWith: unCliente generic: false.!
+cliente: unCliente fecha: unaFecha
+	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
+	^self new
+		initializeWith: unCliente
+		generic: false
+		fecha: unaFecha!
 
-nuevoGenerico
-	^self new initializeWith: nil generic: true! !
+nuevoGenerico: unaFecha
+	^self new
+		initializeWith: nil
+			generic: true
+			fecha: unaFecha! !
 
 !Compras class categoriesForMethods!
-cliente:!public! !
-nuevoGenerico!public! !
+cliente:fecha:!public! !
+nuevoGenerico:!public! !
 !
 
 Hospital guid: (GUID fromString: '{8d2fe85d-8d61-4e20-ac72-c87540dcc737}')!
@@ -234,11 +264,31 @@ Hospital comment: ''!
 
 !Hospital methodsFor!
 
+getNombre
+^nombre!
+
+setNombre: unNombre
+	(unNombre isKindOf: String) ifFalse: [self error: 'El nombre no es un string'].
+	nombre := unNombre!
+
 verMaquinasExp
 	^0! !
 
 !Hospital categoriesForMethods!
+getNombre!public! !
+setNombre:!public! !
 verMaquinasExp!public! !
+!
+
+!Hospital class methodsFor!
+
+nombre: unNombre
+	^self new
+		setNombre: unNombre;
+		yourself! !
+
+!Hospital class categoriesForMethods!
+nombre:!public! !
 !
 
 ItemCompra guid: (GUID fromString: '{35f1706d-1318-45fa-9b0d-91d5ca352f81}')!
@@ -492,19 +542,10 @@ addCompra: compra
 	self establecerTabla.
 	compra setId: Id.
 	Collection add: compra.
-	Id := Id + 1.!
-
-establecerTabla
-	"Private - Instanciar tabla si no existe"
-
-	Collection = nil
-		ifTrue: 
-			[Collection := OrderedCollection new.
-			Id := 1]! !
+	Id := Id + 1.! !
 
 !TablaCompras class categoriesForMethods!
 addCompra:!public! !
-establecerTabla!private! !
 !
 
 TablaMedicos guid: (GUID fromString: '{9492eed8-3e56-45d6-b9f2-875a1020791e}')!
@@ -520,19 +561,10 @@ addMedico: medico
 	self establecerTabla.
 	medico setId: Id.
 	Collection add: medico.
-	Id := Id + 1!
-
-establecerTabla
-	"Private - Instanciar tabla si no existe"
-
-	Collection = nil
-		ifTrue: 
-			[Collection := OrderedCollection new.
-			Id := 1]! !
+	Id := Id + 1! !
 
 !TablaMedicos class categoriesForMethods!
 addMedico:!public! !
-establecerTabla!private! !
 !
 
 TablaProductos guid: (GUID fromString: '{75884272-4ebb-4a0e-a867-576c236e7169}')!
@@ -548,19 +580,10 @@ addProducto: producto
 	self establecerTabla.
 	producto setId: Id.
 	Collection add: producto.
-	Id := Id + 1.!
-
-establecerTabla
-	"Private - Instanciar tabla si no existe"
-
-	Collection = nil
-		ifTrue: 
-			[Collection := OrderedCollection new.
-			Id := 1]! !
+	Id := Id + 1.! !
 
 !TablaProductos class categoriesForMethods!
 addProducto:!public! !
-establecerTabla!private! !
 !
 
 MaquinaCafe guid: (GUID fromString: '{50a9010d-d5d4-433c-b498-4b2aec432c36}')!

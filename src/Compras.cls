@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico'
+	instanceVariableNames: 'id cliente esGenerico fecha'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -20,12 +20,21 @@ esGenerico
 getCliente
 ^cliente.!
 
+getFecha
+^fecha!
+
 getId
 ^id.!
 
-initializeWith: unCliente generic: unBooleano
-cliente := unCliente.
-esGenerico := unBooleano.!
+initializeWith: unCliente generic: unBooleano fecha: unaFecha
+	unCliente = nil | (unCliente isKindOf: Medico)
+		ifFalse: [self error: 'El cliente no es un dato nulo o un medico'].
+	(unBooleano isKindOf: Boolean)
+		ifFalse: [self error: 'No se aclaró si el cliente es generico o no'].
+	(unaFecha isKindOf: Date) ifFalse: [self error: 'Fecha no valida'].
+	cliente := unCliente.
+	esGenerico := unBooleano.
+	fecha := unaFecha!
 
 setId: unId
 	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
@@ -35,22 +44,29 @@ setId: unId
 !Compras categoriesForMethods!
 esGenerico!public! !
 getCliente!public! !
+getFecha!public! !
 getId!public! !
-initializeWith:generic:!private! !
+initializeWith:generic:fecha:!private! !
 setId:!public! !
 !
 
 !Compras class methodsFor!
 
-cliente: unCliente
-(unCliente class = Medico) ifFalse: [self error: 'Atributo Inválido'].
-^self new initializeWith: unCliente generic: false.!
+cliente: unCliente fecha: unaFecha
+	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
+	^self new
+		initializeWith: unCliente
+		generic: false
+		fecha: unaFecha!
 
-nuevoGenerico
-	^self new initializeWith: nil generic: true! !
+nuevoGenerico: unaFecha
+	^self new
+		initializeWith: nil
+			generic: true
+			fecha: unaFecha! !
 
 !Compras class categoriesForMethods!
-cliente:!public! !
-nuevoGenerico!public! !
+cliente:fecha:!public! !
+nuevoGenerico:!public! !
 !
 

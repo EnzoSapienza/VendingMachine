@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Hospital
-	instanceVariableNames: ''
+	instanceVariableNames: 'nombre maquinasExp verRecaudoSemanal'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,10 +14,30 @@ Hospital comment: ''!
 
 !Hospital methodsFor!
 
+getNombre
+^nombre!
+
+setNombre: unNombre
+	(unNombre isKindOf: String) ifFalse: [self error: 'El nombre no es un string'].
+	nombre := unNombre!
+
 verMaquinasExp
 	^0! !
 
 !Hospital categoriesForMethods!
+getNombre!public! !
+setNombre:!public! !
 verMaquinasExp!public! !
+!
+
+!Hospital class methodsFor!
+
+nombre: unNombre
+	^self new
+		setNombre: unNombre;
+		yourself! !
+
+!Hospital class categoriesForMethods!
+nombre:!public! !
 !
 

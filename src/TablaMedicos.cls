@@ -2,7 +2,7 @@
 
 AbstractTabla subclass: #TablaMedicos
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -19,18 +19,9 @@ addMedico: medico
 	self establecerTabla.
 	medico setId: Id.
 	Collection add: medico.
-	Id := Id + 1!
-
-establecerTabla
-	"Private - Instanciar tabla si no existe"
-
-	Collection = nil
-		ifTrue: 
-			[Collection := OrderedCollection new.
-			Id := 1]! !
+	Id := Id + 1! !
 
 !TablaMedicos class categoriesForMethods!
 addMedico:!public! !
-establecerTabla!private! !
 !
 

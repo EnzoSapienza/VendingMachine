@@ -2,7 +2,7 @@
 
 AbstractTabla subclass: #TablaProductos
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -19,18 +19,9 @@ addProducto: producto
 	self establecerTabla.
 	producto setId: Id.
 	Collection add: producto.
-	Id := Id + 1.!
-
-establecerTabla
-	"Private - Instanciar tabla si no existe"
-
-	Collection = nil
-		ifTrue: 
-			[Collection := OrderedCollection new.
-			Id := 1]! !
+	Id := Id + 1.! !
 
 !TablaProductos class categoriesForMethods!
 addProducto:!public! !
-establecerTabla!private! !
 !
 

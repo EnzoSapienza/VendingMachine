@@ -32,7 +32,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin').
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
 
 package!
 
@@ -42,16 +43,16 @@ Object subclass: #AbstractTabla
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: ''!
+	classInstanceVariableNames: 'Collection Id'!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico'
+	instanceVariableNames: 'id cliente esGenerico fecha'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Object subclass: #Hospital
-	instanceVariableNames: ''
+	instanceVariableNames: 'nombre maquinasExp verRecaudoSemanal'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -94,19 +95,19 @@ Object subclass: #SnackDisponibles
 
 AbstractTabla subclass: #TablaCompras
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 AbstractTabla subclass: #TablaMedicos
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 AbstractTabla subclass: #TablaProductos
 	instanceVariableNames: ''
-	classVariableNames: 'Collection Id'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
