@@ -28,7 +28,7 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin').
+	'..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin').
 
 package!
 
@@ -77,7 +77,7 @@ Object subclass: #Producto
 	classInstanceVariableNames: ''!
 
 Object subclass: #SnackDisponibles
-	instanceVariableNames: 'idSnack stock'
+	instanceVariableNames: 'idSnack Stock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -315,20 +315,68 @@ Producto comment: ''!
 
 !Producto methodsFor!
 
+getCodigo
+^codigo.!
+
 getNombre
 	^nombre!
 
 getPrecio
 	^precio!
 
+getProvedor
+^proveedor.!
+
+getStock
+^stock.!
+
+getStockMinimo
+^stockminimo.!
+
+getTipo
+^tipo.!
+
 initializeWithNombre: unNombre precio: unPrecio
 nombre := unNombre.
-precio := unPrecio.! !
+precio := unPrecio.!
+
+setCodigo: unCodigo
+codigo := unCodigo.!
+
+setNombre: unNombre
+nombre := unNombre.!
+
+setPrecio: unPrecio
+precio := unPrecio.!
+
+setProvedor: unProveedor
+proveedor := unProveedor.!
+
+setStock: unStock
+stock := unStock.!
+
+setStockMinimo: unStock
+stockminimo := unStock.!
+
+setTipo: unTipo
+tipo := unTipo.! !
 
 !Producto categoriesForMethods!
+getCodigo!public! !
 getNombre!public! !
 getPrecio!public! !
+getProvedor!public! !
+getStock!public! !
+getStockMinimo!public! !
+getTipo!public! !
 initializeWithNombre:precio:!private! !
+setCodigo:!public! !
+setNombre:!public! !
+setPrecio:!public! !
+setProvedor:!public! !
+setStock:!public! !
+setStockMinimo:!public! !
+setTipo:!public! !
 !
 
 !Producto class methodsFor!
@@ -354,10 +402,10 @@ getSnackId
 	^idSnack!
 
 getStock
-	^stock!
+	^Stock!
 
 initializeWith: unStock
-stock := unStock.! !
+Stock := unStock.! !
 
 !SnackDisponibles categoriesForMethods!
 getSnackId!public! !
