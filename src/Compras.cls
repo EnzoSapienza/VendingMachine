@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico fecha'
+	instanceVariableNames: 'id cliente esGenerico fecha items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -42,7 +42,10 @@ initializeWith: unCliente generic: unBooleano fecha: unaFecha
 setId: unId
 	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
 	unId <= 0 ifTrue: [self error: 'Id invalido'].
-	id = nil ifTrue: [id := unId]! !
+	id = nil ifTrue: [id := unId]!
+
+setProductos: prodIds
+items := prodIds collect:[:v | ItemCompra new ]! !
 
 !Compras categoriesForMethods!
 comprarSnack:metodo:cliente:!public! !
@@ -52,6 +55,7 @@ getFecha!public! !
 getId!public! !
 initializeWith:generic:fecha:!private! !
 setId:!public! !
+setProductos:!public! !
 !
 
 !Compras class methodsFor!
@@ -63,22 +67,14 @@ cliente: unCliente
 		generic: false
 		fecha: Date today!
 
-cliente: unCliente fecha: unaFecha
-	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
-	^self new
-		initializeWith: unCliente
-		generic: false
-		fecha: unaFecha!
-
-nuevoGenerico: unaFecha
+nuevoGenerico
 	^self new
 		initializeWith: nil
 			generic: true
-			fecha: unaFecha! !
+			fecha: Date today.! !
 
 !Compras class categoriesForMethods!
 cliente:!public! !
-cliente:fecha:!public! !
-nuevoGenerico:!public! !
+nuevoGenerico!public! !
 !
 

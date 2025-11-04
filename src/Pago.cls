@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Pago
-	instanceVariableNames: 'id idCompra monto cobrado'
+	instanceVariableNames: 'id idCompra monto'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -15,7 +15,7 @@ Pago comment: ''!
 !Pago methodsFor!
 
 cobrar
-(self = Pago) ifTrue: [self error: 'Pago Abstracto no debe implementar este método'. ].!
+	self subclassResponsibility!
 
 getCompraId
 ^idCompra!
@@ -26,13 +26,13 @@ getId
 getMonto
 	^monto!
 
-initializeWith: unId monto: unMonto
-	(unId isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
+initializeWith: unMonto
 	(unMonto isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: monto no es un número'].
 	unMonto > 0 ifFalse: [self error: 'Parametro Invalido: monto es negativo'].
-	idCompra := unId.
-	monto := unMonto.
-	cobrado := false.!
+	monto := unMonto.!
+
+setCompraId: unId
+idCompra := unId.!
 
 setId: unId
 	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
@@ -44,22 +44,31 @@ cobrar!public! !
 getCompraId!public! !
 getId!public! !
 getMonto!public! !
-initializeWith:monto:!private! !
+initializeWith:!private! !
+setCompraId:!public! !
 setId:!public! !
 !
 
 !Pago class methodsFor!
+
+monto: unMonto datoCliente: datoCliente
+	self subclassResponsibility!
 
 new
     self = Pago ifTrue: [
         self error: 'La clase Pago es abstracta y no puede instanciarse' ].
     ^super new.!
 
-tipo: tipoDePago
-! !
+tipo
+	self subclassResponsibility!
+
+tipo: tipoDePago monto: unMonto cliente: unCliente
+	^(self subclasses detect: [:clase | clase tipo = tipoDePago]) monto: unMonto datoCliente: unCliente.! !
 
 !Pago class categoriesForMethods!
+monto:datoCliente:!public! !
 new!public! !
-tipo:!public! !
+tipo!public! !
+tipo:monto:cliente:!public! !
 !
 

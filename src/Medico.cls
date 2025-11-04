@@ -14,6 +14,9 @@ Medico comment: ''!
 
 !Medico methodsFor!
 
+cobrar: unMonto
+saldo := saldo - unMonto.!
+
 getId
 ^id.!
 
@@ -36,6 +39,7 @@ setId: unId
 	id = nil ifTrue: [id := unId]! !
 
 !Medico categoriesForMethods!
+cobrar:!public! !
 getId!public! !
 getNombre!public! !
 getSaldo!public! !

@@ -14,25 +14,29 @@ AbstractTabla comment: ''!
 
 !AbstractTabla class methodsFor!
 
+add:unElemento
+self subclassResponsibility.!
+
 establecerTabla
 	"Private - Instanciar tabla si no existe"
 
 	Collection = nil
 		ifTrue: 
-			[Collection := OrderedCollection new.
+			[Collection := Dictionary new.
 			Id := 1]!
 
 getAll
-	^Collection!
+	^Collection values.!
 
 getPorId: unId
 	self establecerTabla.
-	^Collection detect: [:each | each getId = unId] ifNone: [nil]!
+	^Collection at: unId!
 
 new
-	self error: 'La clase ' , self printString , ' es estática y no debe instanciarte'! !
+	self error: 'Las clase ' , self class printString , ' es una clase abstracta.'! !
 
 !AbstractTabla class categoriesForMethods!
+add:!public! !
 establecerTabla!private! !
 getAll!public! !
 getPorId:!public! !

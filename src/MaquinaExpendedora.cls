@@ -14,6 +14,9 @@ MaquinaExpendedora comment: ''!
 
 !MaquinaExpendedora methodsFor!
 
+comprarProductos: prodIds pago: tipoPago datoCliente: unCliente
+	self subclassResponsibility!
+
 getCompras
 	^compras!
 
@@ -31,7 +34,9 @@ initializeWith: unaUbicacion compras: unasCompras
 	(unasCompras allSatisfy: [:each | each class = Compras])
 		ifFalse: [self error: 'Parametro Invaldo: no-compras encontradas en la lista'].
 	ubicacion := unaUbicacion.
-	compras := unasCompras!
+	unasCompras = nil
+		ifTrue: [compras := OrderedCollection new]
+		ifFalse: [compras := unasCompras]!
 
 setId: unId
 	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
@@ -39,6 +44,7 @@ setId: unId
 	id := unId! !
 
 !MaquinaExpendedora categoriesForMethods!
+comprarProductos:pago:datoCliente:!public! !
 getCompras!public! !
 getId!public! !
 getUbicacion!public! !

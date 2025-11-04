@@ -17,9 +17,11 @@ package classNames
 	add: #PagoQR;
 	add: #PagoTarjeta;
 	add: #Producto;
+	add: #Respuesta;
 	add: #Snack;
 	add: #SnackDisponibles;
 	add: #TablaCompras;
+	add: #TablaItems;
 	add: #TablaMedicos;
 	add: #TablaProductos;
 	add: #TipoCafe;
@@ -46,7 +48,7 @@ Object subclass: #AbstractTabla
 	classInstanceVariableNames: 'Collection Id'!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico fecha'
+	instanceVariableNames: 'id cliente esGenerico fecha items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -76,13 +78,19 @@ Object subclass: #Medico
 	classInstanceVariableNames: ''!
 
 Object subclass: #Pago
-	instanceVariableNames: 'id idCompra monto cobrado'
+	instanceVariableNames: 'id idCompra monto'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Object subclass: #Producto
 	instanceVariableNames: 'id nombre precio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Respuesta
+	instanceVariableNames: 'mensaje exito'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -94,6 +102,12 @@ Object subclass: #SnackDisponibles
 	classInstanceVariableNames: ''!
 
 AbstractTabla subclass: #TablaCompras
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+AbstractTabla subclass: #TablaItems
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -148,7 +162,7 @@ Producto subclass: #Snack
 	classInstanceVariableNames: ''!
 
 Producto subclass: #TipoCafe
-	instanceVariableNames: 'azucarNecesaria lecheNecesaria'
+	instanceVariableNames: 'aguaNecesaria lecheNecesaria'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

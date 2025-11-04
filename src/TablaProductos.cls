@@ -14,14 +14,14 @@ TablaProductos comment: ''!
 
 !TablaProductos class methodsFor!
 
-addProducto: producto
+add: producto
 	(producto isKindOf: Producto) ifFalse: [self error: 'No es un producto'].
 	self establecerTabla.
 	producto setId: Id.
 	Collection add: producto.
-	Id := Id + 1.! !
+	Id := Id + 1! !
 
 !TablaProductos class categoriesForMethods!
-addProducto:!public! !
+add:!public! !
 !
 

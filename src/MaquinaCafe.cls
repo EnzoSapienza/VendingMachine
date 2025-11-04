@@ -14,13 +14,17 @@ MaquinaCafe comment: ''!
 
 !MaquinaCafe methodsFor!
 
-comprarProductos: prodIds pago: tipoPago datoCliente: unCliente
-	| pago compra producto |
+comprarProductos: prodIds pago: pago datoCliente: unCliente
+	| compra productos |
 	"Validar producto"
-	producto := TablaProductos getPorId: prodIds.
-	(producto isKindOf: TipoCafe) ifFalse: [].
+	productos := prodIds collect:[:v | TablaProductos getPorId: v].
+	(productos isKindOf: TipoCafe) ifFalse: [self error: 'Cafe no encontrado'].
+	"Faltan validaciones"
 
-	compra = Compras!
+	compra := pago cobrar: unCliente.
+	lecheDisponible := lecheDisponible - productos getLecheNecesaria.
+	aguaDisponible := aguaDisponible - productos getAguaNecesaria.
+	^Respuesta mensaje: 'Compra realizada con éxito' exito: true.!
 
 getAguaDisponible
 	^aguaDisponible!

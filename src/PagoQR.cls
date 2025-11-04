@@ -14,28 +14,41 @@ PagoQR comment: ''!
 
 !PagoQR methodsFor!
 
+cobrar
+	| compra |
+	Transcript
+		show: 'Se han cobrado al link ' , link , ' un total de: ' , monto;
+		cr.
+	compra := Compras nuevoGenerico.
+	TablaCompras add: compra.
+	^compra!
+
 getLink
 	^link!
 
-initializeWith: unLink Compra: unaCompraId monto: unMonto
+initializeWith: unLink monto: unMonto
 	(unLink isKindOf: String) ifFalse: [self error: 'Parametro Invalido: el link no es un string'].
 	link := unLink.
-	super initializeWith: unaCompraId monto: unMonto! !
+	super initializeWith: unMonto! !
 
 !PagoQR categoriesForMethods!
+cobrar!public! !
 getLink!public! !
-initializeWith:Compra:monto:!private! !
+initializeWith:monto:!private! !
 !
 
 !PagoQR class methodsFor!
 
-compra: unaCompraId monto: unMonto link: unLink
-	^self new
+monto: unMonto datoCliente: unLink
+^self new
 		initializeWith: unLink
-		Compra: unaCompraId
-		monto: unMonto! !
+		monto: unMonto!
+
+tipo
+	^#QR! !
 
 !PagoQR class categoriesForMethods!
-compra:monto:link:!public! !
+monto:datoCliente:!public! !
+tipo!public! !
 !
 

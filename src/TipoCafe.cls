@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Producto subclass: #TipoCafe
-	instanceVariableNames: 'azucarNecesaria lecheNecesaria'
+	instanceVariableNames: 'aguaNecesaria lecheNecesaria'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,8 +14,8 @@ TipoCafe comment: ''!
 
 !TipoCafe methodsFor!
 
-getAzucarNecesaria
-	^azucarNecesaria!
+getAguaNecesaria
+	^aguaNecesaria!
 
 getLecheNecesaria
 	^lecheNecesaria!
@@ -30,7 +30,7 @@ initializeWithNombre: unNombre precio: unPrecio azucar: azucar leche: leche
 	super initializeWithNombre: unNombre precio: unPrecio! !
 
 !TipoCafe categoriesForMethods!
-getAzucarNecesaria!public! !
+getAguaNecesaria!public! !
 getLecheNecesaria!public! !
 initializeWithNombre:precio:azucar:leche:!private! !
 !

@@ -14,29 +14,42 @@ PagoTarjeta comment: ''!
 
 !PagoTarjeta methodsFor!
 
+cobrar
+	| compra |
+	Transcript
+		show: 'Se han cobrado a la tarjeta ' , numTarjeta , ' un total de: ' , monto;
+		cr.
+	compra := Compras nuevoGenerico.
+	TablaCompras add: compra.
+	^compra!
+
 getTarjeta
 	^numTarjeta!
 
-initializeWith: unaTarjeta Compra: unaCompraId monto: unMonto
+initializeWith: unaTarjeta monto: unMonto
 	(unaTarjeta isKindOf: Integer)
 		ifFalse: [self error: 'Parametro Invalido: la tarjeta no es un entero'].
 	numTarjeta := unaTarjeta.
-	super initializeWith: unaCompraId monto: unMonto! !
+	super initializeWith: unMonto! !
 
 !PagoTarjeta categoriesForMethods!
+cobrar!public! !
 getTarjeta!public! !
-initializeWith:Compra:monto:!private! !
+initializeWith:monto:!private! !
 !
 
 !PagoTarjeta class methodsFor!
 
-compra: unaCompraId monto: unMonto tarjeta: unaTarjeta
+monto: unMonto datoCliente: unaTarjeta
 	^self new
 		initializeWith: unaTarjeta
-		Compra: unaCompraId
-		monto: unMonto! !
+		monto: unMonto!
+
+tipo
+^#Tarjeta! !
 
 !PagoTarjeta class categoriesForMethods!
-compra:monto:tarjeta:!public! !
+monto:datoCliente:!public! !
+tipo!public! !
 !
 

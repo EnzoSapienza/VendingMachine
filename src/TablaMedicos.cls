@@ -14,7 +14,7 @@ TablaMedicos comment: ''!
 
 !TablaMedicos class methodsFor!
 
-addMedico: medico
+add: medico
 	(medico isKindOf: Medico) ifFalse: [self error: 'No es un medico'].
 	self establecerTabla.
 	medico setId: Id.
@@ -22,6 +22,6 @@ addMedico: medico
 	Id := Id + 1! !
 
 !TablaMedicos class categoriesForMethods!
-addMedico:!public! !
+add:!public! !
 !
 

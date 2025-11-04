@@ -14,14 +14,14 @@ TablaCompras comment: ''!
 
 !TablaCompras class methodsFor!
 
-addCompra: compra
+add: compra
 	(compra isKindOf: Compras) ifFalse: [self error: 'No es una compra'].
 	self establecerTabla.
 	compra setId: Id.
-	Collection add: compra.
-	Id := Id + 1.! !
+	Collection at: compra getId set: compra.
+	Id := Id + 1! !
 
 !TablaCompras class categoriesForMethods!
-addCompra:!public! !
+add:!public! !
 !
 

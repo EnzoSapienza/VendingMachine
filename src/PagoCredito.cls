@@ -14,28 +14,44 @@ PagoCredito comment: ''!
 
 !PagoCredito methodsFor!
 
+cobrar
+	| compra medico |
+	medico := TablaMedicos getPorId: idMedico.
+	Transcript
+		show: 'Se han cobrado al empleado ' , medico getNombre , ' un total de: ' , monto;
+		cr.
+	medico cobrar: monto.
+	compra := Compras cliente: medico.
+	TablaCompras add: compra.
+	idCompra := compra getId.
+	^compra!
+
 getMedicoId
 	^idMedico!
 
-initializeWith: medicoId Compra: unaCompraId monto: unMonto
+initializeWith: medicoId monto: unMonto
 	(idMedico isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
 	idMedico := medicoId.
-	super initializeWith: unaCompraId monto: unMonto! !
+	super initializeWith: unMonto! !
 
 !PagoCredito categoriesForMethods!
+cobrar!public! !
 getMedicoId!public! !
-initializeWith:Compra:monto:!private! !
+initializeWith:monto:!private! !
 !
 
 !PagoCredito class methodsFor!
 
-compra: unaCompraId monto: unMonto medico: idMedico
+monto: unMonto datoCliente: idMedico
 	^self new
 		initializeWith: idMedico
-		Compra: unaCompraId
-		monto: unMonto! !
+		monto: unMonto!
+
+tipo
+^#Credito! !
 
 !PagoCredito class categoriesForMethods!
-compra:monto:medico:!public! !
+monto:datoCliente:!public! !
+tipo!public! !
 !
 
