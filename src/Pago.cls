@@ -53,9 +53,13 @@ setId:!public! !
 new
     self = Pago ifTrue: [
         self error: 'La clase Pago es abstracta y no puede instanciarse' ].
-    ^super new.! !
+    ^super new.!
+
+tipo: tipoDePago
+! !
 
 !Pago class categoriesForMethods!
 new!public! !
+tipo:!public! !
 !
 

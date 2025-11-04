@@ -14,6 +14,14 @@ MaquinaCafe comment: ''!
 
 !MaquinaCafe methodsFor!
 
+comprarProductos: prodIds pago: tipoPago datoCliente: unCliente
+	| pago compra producto |
+	"Validar producto"
+	producto := TablaProductos getPorId: prodIds.
+	(producto isKindOf: TipoCafe) ifFalse: [].
+
+	compra = Compras!
+
 getAguaDisponible
 	^aguaDisponible!
 
@@ -54,6 +62,7 @@ initializeWithUbicacion: unaUbicacion compras: unasCompras leche: leche capsulas
 	super initializeWith: unaUbicacion compras: unasCompras! !
 
 !MaquinaCafe categoriesForMethods!
+comprarProductos:pago:datoCliente:!public! !
 getAguaDisponible!public! !
 getCafesDisponibles!public! !
 getCapsulas!public! !

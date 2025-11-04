@@ -180,7 +180,7 @@ getAll
 
 getPorId: unId
 	self establecerTabla.
-	^Collection detect: [:each | each getId = unId]!
+	^Collection detect: [:each | each getId = unId] ifNone: [nil]!
 
 new
 	self error: 'La clase ' , self printString , ' es estática y no debe instanciarte'! !
@@ -199,6 +199,9 @@ Compras comment: ''!
 !Compras categoriesForClass!Kernel-Objects! !
 
 !Compras methodsFor!
+
+comprarSnack:snackId metodo: unMetodo cliente: unCliente
+!
 
 esGenerico
 ^esGenerico.!
@@ -228,6 +231,7 @@ setId: unId
 	id = nil ifTrue: [id := unId]! !
 
 !Compras categoriesForMethods!
+comprarSnack:metodo:cliente:!public! !
 esGenerico!public! !
 getCliente!public! !
 getFecha!public! !
@@ -237,6 +241,13 @@ setId:!public! !
 !
 
 !Compras class methodsFor!
+
+cliente: unCliente
+	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
+	^self new
+		initializeWith: unCliente
+		generic: false
+		fecha: Date today!
 
 cliente: unCliente fecha: unaFecha
 	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
@@ -252,6 +263,7 @@ nuevoGenerico: unaFecha
 			fecha: unaFecha! !
 
 !Compras class categoriesForMethods!
+cliente:!public! !
 cliente:fecha:!public! !
 nuevoGenerico:!public! !
 !
@@ -264,28 +276,56 @@ Hospital comment: ''!
 
 !Hospital methodsFor!
 
+addMaquina: maquina
+maquinasExp add: maquina.!
+
+comprar: maquinaId producto: prodId pago: tipoPago datoCliente: unCliente
+	| maquina respuesta |
+	maquina := self getMaquinaPorId: maquinaId.
+	respuesta := maquina
+				comprarProducto: prodId
+				pago: tipoPago
+				datoCliente: unCliente.
+	^respuesta!
+
+comprar: maquinaId productos: prodIds pago: tipoPago datoCliente: unCliente
+	| maquina respuesta |
+	maquina := self getMaquinaPorId: maquinaId.
+	respuesta := maquina
+				comprarProducto: prodIds
+				pago: tipoPago
+				datoCliente: unCliente.
+	^respuesta!
+
+getMaquinaPorId: unId
+	^maquinasExp detect: [:each | each getId = unId] ifNone: [nil]!
+
 getNombre
 ^nombre!
 
+initializeWith: unNombre
+	self setNombre: unNombre.
+	maquinasExp := OrderedCollection new!
+
 setNombre: unNombre
 	(unNombre isKindOf: String) ifFalse: [self error: 'El nombre no es un string'].
-	nombre := unNombre!
-
-verMaquinasExp
-	^0! !
+	nombre := unNombre! !
 
 !Hospital categoriesForMethods!
+addMaquina:!public! !
+comprar:producto:pago:datoCliente:!public! !
+comprar:productos:pago:datoCliente:!public! !
+getMaquinaPorId:!public! !
 getNombre!public! !
+initializeWith:!private! !
 setNombre:!public! !
-verMaquinasExp!public! !
 !
 
 !Hospital class methodsFor!
 
 nombre: unNombre
 	^self new
-		setNombre: unNombre;
-		yourself! !
+		initializeWith: unNombre! !
 
 !Hospital class categoriesForMethods!
 nombre:!public! !
@@ -444,10 +484,14 @@ setId:!public! !
 new
     self = Pago ifTrue: [
         self error: 'La clase Pago es abstracta y no puede instanciarse' ].
-    ^super new.! !
+    ^super new.!
+
+tipo: tipoDePago
+! !
 
 !Pago class categoriesForMethods!
 new!public! !
+tipo:!public! !
 !
 
 Producto guid: (GUID fromString: '{27f458ec-9c07-4573-aa70-3cc6f84955d3}')!
@@ -594,6 +638,14 @@ MaquinaCafe comment: ''!
 
 !MaquinaCafe methodsFor!
 
+comprarProductos: prodIds pago: tipoPago datoCliente: unCliente
+	| pago compra producto |
+	"Validar producto"
+	producto := TablaProductos getPorId: prodIds.
+	(producto isKindOf: TipoCafe) ifFalse: [].
+
+	compra = Compras!
+
 getAguaDisponible
 	^aguaDisponible!
 
@@ -634,6 +686,7 @@ initializeWithUbicacion: unaUbicacion compras: unasCompras leche: leche capsulas
 	super initializeWith: unaUbicacion compras: unasCompras! !
 
 !MaquinaCafe categoriesForMethods!
+comprarProductos:pago:datoCliente:!public! !
 getAguaDisponible!public! !
 getCafesDisponibles!public! !
 getCapsulas!public! !

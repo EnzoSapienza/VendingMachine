@@ -27,7 +27,7 @@ getAll
 
 getPorId: unId
 	self establecerTabla.
-	^Collection detect: [:each | each getId = unId]!
+	^Collection detect: [:each | each getId = unId] ifNone: [nil]!
 
 new
 	self error: 'La clase ' , self printString , ' es estática y no debe instanciarte'! !

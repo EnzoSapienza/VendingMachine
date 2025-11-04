@@ -14,6 +14,9 @@ Compras comment: ''!
 
 !Compras methodsFor!
 
+comprarSnack:snackId metodo: unMetodo cliente: unCliente
+!
+
 esGenerico
 ^esGenerico.!
 
@@ -42,6 +45,7 @@ setId: unId
 	id = nil ifTrue: [id := unId]! !
 
 !Compras categoriesForMethods!
+comprarSnack:metodo:cliente:!public! !
 esGenerico!public! !
 getCliente!public! !
 getFecha!public! !
@@ -51,6 +55,13 @@ setId:!public! !
 !
 
 !Compras class methodsFor!
+
+cliente: unCliente
+	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
+	^self new
+		initializeWith: unCliente
+		generic: false
+		fecha: Date today!
 
 cliente: unCliente fecha: unaFecha
 	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
@@ -66,6 +77,7 @@ nuevoGenerico: unaFecha
 			fecha: unaFecha! !
 
 !Compras class categoriesForMethods!
+cliente:!public! !
 cliente:fecha:!public! !
 nuevoGenerico:!public! !
 !
