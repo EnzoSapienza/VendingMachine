@@ -12,3 +12,16 @@ TablaItems comment: ''!
 
 !TablaItems categoriesForClass!Kernel-Objects! !
 
+!TablaItems class methodsFor!
+
+add: item
+	(item isKindOf: ItemCompra ) ifFalse: [self error: 'No es un item'].
+	self establecerTabla.
+	item setId: Id.
+	Collection at: Id put: item.
+	Id := Id + 1! !
+
+!TablaItems class categoriesForMethods!
+add:!public! !
+!
+

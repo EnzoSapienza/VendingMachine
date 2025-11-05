@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 MaquinaExpendedora subclass: #MaquinaCafe
-	instanceVariableNames: 'lecheDisponible capsulas aguaDisponible cafesDisponibles'
+	instanceVariableNames: 'lecheDisponible capsulas aguaDisponible azucarDisponible'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,23 +14,35 @@ MaquinaCafe comment: ''!
 
 !MaquinaCafe methodsFor!
 
-comprarProductos: prodIds pago: pago datoCliente: unCliente
-	| compra productos |
+comprarProductos: prodIds pago: pago
+	| productos lecheTotal aguaTotal azucarTotal compra |
 	"Validar producto"
-	productos := prodIds collect:[:v | TablaProductos getPorId: v].
-	(productos isKindOf: TipoCafe) ifFalse: [self error: 'Cafe no encontrado'].
-	"Faltan validaciones"
+	(prodIds allSatisfy: [:each | each isKindOf: Integer]) ifFalse: [self error: 'Id invalido'].
+	(pago isKindOf: Pago) ifFalse: [self error: 'Pago invalido'].
+	productos := prodIds collect: [:v | TablaProductos getPorId: v].
+	(productos allSatisfy: [:each | each isKindOf: TipoCafe])
+		ifFalse: [^Respuesta mensaje: 'Cafe no encontrado' exito: false].
 
-	compra := pago cobrar: unCliente.
-	lecheDisponible := lecheDisponible - productos getLecheNecesaria.
-	aguaDisponible := aguaDisponible - productos getAguaNecesaria.
-	^Respuesta mensaje: 'Compra realizada con éxito' exito: true.!
+	"Validar materiales restantes"
+	lecheTotal := productos inject: 0 into: [:acum :v | acum + v getLecheNecesaria].
+	aguaTotal := productos inject: 0 into: [:acum :v | acum + v getAguaNecesaria].
+	azucarTotal := productos inject: 0 into: [:acum :v | acum + v getAzucarNecesaria].
+	lecheDisponible < lecheTotal ifTrue: [^Respuesta mensaje: 'Leche insuficiente' exito: false].
+	aguaDisponible < aguaTotal ifTrue: [^Respuesta mensaje: 'Agua insuficiente' exito: false].
+	azucarDisponible < azucarTotal ifTrue: [^Respuesta mensaje: 'Azucar insuficiente' exito: false].
+	capsulas > 0 ifFalse: [^Respuesta mensaje: 'No hay más capsulas' exito: false].
+
+	"Cobrar producto"
+	compra := pago cobrar: productos.
+	self addCompra: compra.
+	lecheDisponible := lecheDisponible - lecheTotal.
+	aguaDisponible := aguaDisponible - aguaTotal.
+	azucarDisponible := azucarDisponible - azucarTotal.
+	capsulas := capsulas - 1.
+	^Respuesta mensaje: 'Compra realizada con éxito' exito: true!
 
 getAguaDisponible
 	^aguaDisponible!
-
-getCafesDisponibles
-	^cafesDisponibles!
 
 getCapsulas
 	^capsulas!
@@ -38,8 +50,9 @@ getCapsulas
 getLecheDisponible
 	^lecheDisponible!
 
-initializeWithUbicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agua: agua cafes: cafes
+initializeWithUbicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agua: agua azucar: azucar
 	"Validaciones - leche"
+
 	(leche isKindOf: Integer)
 		ifFalse: [self error: 'Parametro Invalido: Leche en Mililitros no es un entero'].
 	leche > 0 ifFalse: [self error: 'Parametro Invalido: Leche negativa'].
@@ -54,38 +67,38 @@ initializeWithUbicacion: unaUbicacion compras: unasCompras leche: leche capsulas
 		ifFalse: [self error: 'Parametro Invalido: Agua en Mililitros no es un entero'].
 	agua > 0 ifFalse: [self error: 'Parametro Invalido: Agua negativa'].
 
-	"Cafes"
-	(cafes isKindOf: OrderedCollection)
-		ifFalse: [self error: 'Parametro Invalido: Los cafés no es una colección ordenada'].
+	"Azucar"
+	(azucar isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: Azucar no es un entero'].
+	azucar > 0 ifFalse: [self error: 'Parametro Invalido: Azucar negativa'].
+
 
 	"Asignaciones"
 	aguaDisponible := agua.
 	lecheDisponible := leche.
+	azucarDisponible := azucar.
 	capsulas := unEntero.
-	cafesDisponibles := cafes.
 	super initializeWith: unaUbicacion compras: unasCompras! !
 
 !MaquinaCafe categoriesForMethods!
-comprarProductos:pago:datoCliente:!public! !
+comprarProductos:pago:!public! !
 getAguaDisponible!public! !
-getCafesDisponibles!public! !
 getCapsulas!public! !
 getLecheDisponible!public! !
-initializeWithUbicacion:compras:leche:capsulas:agua:cafes:!private! !
+initializeWithUbicacion:compras:leche:capsulas:agua:azucar:!private! !
 !
 
 !MaquinaCafe class methodsFor!
 
-ubicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agua: agua cafes: cafes
+ubicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agua: agua azucar: azucar
 	^self new
 		initializeWithUbicacion: unaUbicacion
 		compras: unasCompras
 		leche: leche
 		capsulas: unEntero
 		agua: agua
-		cafes: cafes! !
+azucar: azucar! !
 
 !MaquinaCafe class categoriesForMethods!
-ubicacion:compras:leche:capsulas:agua:cafes:!public! !
+ubicacion:compras:leche:capsulas:agua:azucar:!public! !
 !
 

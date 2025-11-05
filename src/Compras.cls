@@ -14,9 +14,6 @@ Compras comment: ''!
 
 !Compras methodsFor!
 
-comprarSnack:snackId metodo: unMetodo cliente: unCliente
-!
-
 esGenerico
 ^esGenerico.!
 
@@ -29,52 +26,55 @@ getFecha
 getId
 ^id.!
 
-initializeWith: unCliente generic: unBooleano fecha: unaFecha
+initializeWith: unCliente generic: unBooleano prodIds: prodIds
 	unCliente = nil | (unCliente isKindOf: Medico)
 		ifFalse: [self error: 'El cliente no es un dato nulo o un medico'].
 	(unBooleano isKindOf: Boolean)
 		ifFalse: [self error: 'No se aclaró si el cliente es generico o no'].
-	(unaFecha isKindOf: Date) ifFalse: [self error: 'Fecha no valida'].
+	(prodIds allSatisfy: [:each | each isKindOf: Integer]) ifFalse: [self error: 'Producto no valido'].
+	items := prodIds collect: [:each | ItemCompra prod: each compra: 1].
 	cliente := unCliente.
 	esGenerico := unBooleano.
-	fecha := unaFecha!
+	fecha := Date today!
 
 setId: unId
-	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
 	unId <= 0 ifTrue: [self error: 'Id invalido'].
-	id = nil ifTrue: [id := unId]!
+	id = nil
+		ifTrue: 
+			[id := unId.
+			items do: [:v | v setIdCompra: id]]!
 
 setProductos: prodIds
 items := prodIds collect:[:v | ItemCompra new ]! !
 
 !Compras categoriesForMethods!
-comprarSnack:metodo:cliente:!public! !
 esGenerico!public! !
 getCliente!public! !
 getFecha!public! !
 getId!public! !
-initializeWith:generic:fecha:!private! !
+initializeWith:generic:prodIds:!private! !
 setId:!public! !
 setProductos:!public! !
 !
 
 !Compras class methodsFor!
 
-cliente: unCliente
+cliente: unCliente prodIds: prodIds
 	unCliente class = Medico ifFalse: [self error: 'Atributo Inválido'].
 	^self new
 		initializeWith: unCliente
 		generic: false
-		fecha: Date today!
+		prodIds: prodIds!
 
-nuevoGenerico
+nuevoGenerico: prodIds
 	^self new
 		initializeWith: nil
-			generic: true
-			fecha: Date today.! !
+		generic: true
+		prodIds: prodIds! !
 
 !Compras class categoriesForMethods!
-cliente:!public! !
-nuevoGenerico!public! !
+cliente:prodIds:!public! !
+nuevoGenerico:!public! !
 !
 

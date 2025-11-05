@@ -14,14 +14,17 @@ PagoCredito comment: ''!
 
 !PagoCredito methodsFor!
 
-cobrar
+cobrar: productos
 	| compra medico |
+	(productos allSatisfy: [:each | each isKindOf: Producto])
+		ifFalse: [self error: 'Parametro Invalido: se esperaban productos.'].
 	medico := TablaMedicos getPorId: idMedico.
+	monto := productos inject: 0 into: [:acum :each | each getPrecio + acum].
 	Transcript
-		show: 'Se han cobrado al empleado ' , medico getNombre , ' un total de: ' , monto;
+		show: 'Se han cobrado al empleado ' , medico getNombre , ' un total de: ' , monto printString;
 		cr.
 	medico cobrar: monto.
-	compra := Compras cliente: medico.
+	compra := Compras cliente: medico prodIds: (productos collect: [:each | each getId]).
 	TablaCompras add: compra.
 	idCompra := compra getId.
 	^compra!
@@ -29,29 +32,28 @@ cobrar
 getMedicoId
 	^idMedico!
 
-initializeWith: medicoId monto: unMonto
-	(idMedico isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
-	idMedico := medicoId.
-	super initializeWith: unMonto! !
+initializeWith: medicoId
+	(medicoId isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
+	idMedico := medicoId.!
+
+setMonto: unMonto
+(unMonto isKindOf: Number) ifFalse: [self error: 'El monto no es un número'].
+monto := unMonto.! !
 
 !PagoCredito categoriesForMethods!
-cobrar!public! !
+cobrar:!public! !
 getMedicoId!public! !
-initializeWith:monto:!private! !
+initializeWith:!private! !
+setMonto:!public! !
 !
 
 !PagoCredito class methodsFor!
 
-monto: unMonto datoCliente: idMedico
+datoCliente: idMedico
 	^self new
-		initializeWith: idMedico
-		monto: unMonto!
-
-tipo
-^#Credito! !
+		initializeWith: idMedico! !
 
 !PagoCredito class categoriesForMethods!
-monto:datoCliente:!public! !
-tipo!public! !
+datoCliente:!public! !
 !
 

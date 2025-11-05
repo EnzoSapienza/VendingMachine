@@ -18,7 +18,7 @@ add: medico
 	(medico isKindOf: Medico) ifFalse: [self error: 'No es un medico'].
 	self establecerTabla.
 	medico setId: Id.
-	Collection add: medico.
+	Collection at: Id put: medico .
 	Id := Id + 1! !
 
 !TablaMedicos class categoriesForMethods!

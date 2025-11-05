@@ -30,7 +30,7 @@ getAll
 
 getPorId: unId
 	self establecerTabla.
-	^Collection at: unId!
+	^Collection at: unId ifAbsent: [nil]!
 
 new
 	self error: 'Las clase ' , self class printString , ' es una clase abstracta.'! !

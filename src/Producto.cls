@@ -28,7 +28,7 @@ nombre := unNombre.
 precio := unPrecio.!
 
 setId: unId
-	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
 	unId <= 0 ifTrue: [self error: 'Id invalido'].
 	id = nil ifTrue: [id := unId]! !
 

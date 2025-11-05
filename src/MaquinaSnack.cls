@@ -14,14 +14,14 @@ MaquinaSnack comment: ''!
 
 !MaquinaSnack methodsFor!
 
-comprarProductos: prodIds pago: pago datoCliente: unCliente
+comprarProductos: prodIds pago: pago
 	| compra productos |
 	"Validar producto"
-	productos := prodIds collect:[:v | TablaProductos getPorId: v].
+	productos := prodIds collect: [:v | TablaProductos getPorId: v].
 	(productos allSatisfy: [:each | each isKindOf: Snack]) ifFalse: [self error: 'Snack no encontrado'].
 	"Faltan validaciones"
-	compra := pago cobrar: unCliente.
-	^Respuesta mensaje: 'Compra realizada con éxito' exito: true.!
+	compra := pago cobrar: nil.
+	^Respuesta mensaje: 'Compra realizada con éxito' exito: true!
 
 getSnacksDisponibles
 	^snacksDisponibles select:[:v | v getStock > 0]!
@@ -35,7 +35,7 @@ initializeWith: unaUbicacion compras: unasCompras snacksDisponibles: snacks
 	super initializeWith: unaUbicacion compras: unasCompras! !
 
 !MaquinaSnack categoriesForMethods!
-comprarProductos:pago:datoCliente:!public! !
+comprarProductos:pago:!public! !
 getSnacksDisponibles!public! !
 initializeWith:compras:snacksDisponibles:!private! !
 !

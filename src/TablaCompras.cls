@@ -18,7 +18,7 @@ add: compra
 	(compra isKindOf: Compras) ifFalse: [self error: 'No es una compra'].
 	self establecerTabla.
 	compra setId: Id.
-	Collection at: compra getId set: compra.
+	Collection at: Id put: compra.
 	Id := Id + 1! !
 
 !TablaCompras class categoriesForMethods!

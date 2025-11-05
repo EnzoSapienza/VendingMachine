@@ -14,42 +14,46 @@ PagoTarjeta comment: ''!
 
 !PagoTarjeta methodsFor!
 
-cobrar
+cobrar: productos
 	| compra |
+	(productos allSatisfy: [:each | each isKindOf: Producto])
+		ifFalse: [self error: 'Parametro Invalido: se esperaban productos.'].
+
+	monto := productos inject: 0 into: [:acum :each | each getPrecio + acum].
+	compra := Compras nuevoGenerico: (productos collect: [:each | each getId]).
 	Transcript
-		show: 'Se han cobrado a la tarjeta ' , numTarjeta , ' un total de: ' , monto;
+		show: 'Se han cobrado a la tarjeta ' , numTarjeta printString , ' un total de: ' , monto printString;
 		cr.
-	compra := Compras nuevoGenerico.
 	TablaCompras add: compra.
+	idCompra := compra getId.
 	^compra!
 
 getTarjeta
 	^numTarjeta!
 
-initializeWith: unaTarjeta monto: unMonto
+initializeWith: unaTarjeta
 	(unaTarjeta isKindOf: Integer)
 		ifFalse: [self error: 'Parametro Invalido: la tarjeta no es un entero'].
-	numTarjeta := unaTarjeta.
-	super initializeWith: unMonto! !
+	numTarjeta := unaTarjeta.! !
 
 !PagoTarjeta categoriesForMethods!
-cobrar!public! !
+cobrar:!public! !
 getTarjeta!public! !
-initializeWith:monto:!private! !
+initializeWith:!private! !
 !
 
 !PagoTarjeta class methodsFor!
 
+datoCliente: unaTarjeta
+	^self new initializeWith: unaTarjeta!
+
 monto: unMonto datoCliente: unaTarjeta
 	^self new
 		initializeWith: unaTarjeta
-		monto: unMonto!
-
-tipo
-^#Tarjeta! !
+		monto: unMonto! !
 
 !PagoTarjeta class categoriesForMethods!
+datoCliente:!public! !
 monto:datoCliente:!public! !
-tipo!public! !
 !
 

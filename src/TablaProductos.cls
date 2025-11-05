@@ -18,7 +18,7 @@ add: producto
 	(producto isKindOf: Producto) ifFalse: [self error: 'No es un producto'].
 	self establecerTabla.
 	producto setId: Id.
-	Collection add: producto.
+	Collection at: Id put: producto.
 	Id := Id + 1! !
 
 !TablaProductos class categoriesForMethods!

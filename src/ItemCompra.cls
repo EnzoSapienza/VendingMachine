@@ -22,11 +22,26 @@ getIdProducto
 
 initializeWith: unIdCompra producto: unIdProducto
     idCompra := unIdCompra.
-    idProducto := unIdProducto.! !
+    idProducto := unIdProducto.!
+
+setIdCompra: unId
+	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
+	idCompra := unId! !
 
 !ItemCompra categoriesForMethods!
 getIdCompra!public! !
 getIdProducto!public! !
 initializeWith:producto:!private! !
+setIdCompra:!accessing!public! !
+!
+
+!ItemCompra class methodsFor!
+
+prod: unIdProd compra: unIdCompra
+	(unIdCompra isKindOf: Integer) & (unIdProd isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
+	^self new initializeWith: unIdProd producto: unIdCompra! !
+
+!ItemCompra class categoriesForMethods!
+prod:compra:!public! !
 !
 

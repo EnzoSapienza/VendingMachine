@@ -14,7 +14,7 @@ Pago comment: ''!
 
 !Pago methodsFor!
 
-cobrar
+cobrar: anObject
 	self subclassResponsibility!
 
 getCompraId
@@ -26,32 +26,26 @@ getId
 getMonto
 	^monto!
 
-initializeWith: unMonto
-	(unMonto isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: monto no es un número'].
-	unMonto > 0 ifFalse: [self error: 'Parametro Invalido: monto es negativo'].
-	monto := unMonto.!
-
 setCompraId: unId
 idCompra := unId.!
 
 setId: unId
-	(unId isKindOf: Integer) ifTrue: [self error: 'Id invalido'].
+	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
 	unId <= 0 ifTrue: [self error: 'Id invalido'].
 	id = nil ifTrue: [id := unId]! !
 
 !Pago categoriesForMethods!
-cobrar!public! !
+cobrar:!public! !
 getCompraId!public! !
 getId!public! !
 getMonto!public! !
-initializeWith:!private! !
 setCompraId:!public! !
 setId:!public! !
 !
 
 !Pago class methodsFor!
 
-monto: unMonto datoCliente: datoCliente
+datoCliente: datoCliente
 	self subclassResponsibility!
 
 new
@@ -59,16 +53,12 @@ new
         self error: 'La clase Pago es abstracta y no puede instanciarse' ].
     ^super new.!
 
-tipo
-	self subclassResponsibility!
-
-tipo: tipoDePago monto: unMonto cliente: unCliente
-	^(self subclasses detect: [:clase | clase tipo = tipoDePago]) monto: unMonto datoCliente: unCliente.! !
+tipo: tipoDePago datoCliente: unCliente
+	^(self subclasses detect: [:clase | clase name = tipoDePago]) datoCliente: unCliente! !
 
 !Pago class categoriesForMethods!
-monto:datoCliente:!public! !
+datoCliente:!public! !
 new!public! !
-tipo!public! !
-tipo:monto:cliente:!public! !
+tipo:datoCliente:!public! !
 !
 

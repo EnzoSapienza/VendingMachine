@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Hospital
-	instanceVariableNames: 'nombre maquinasExp verRecaudoSemanal'
+	instanceVariableNames: 'nombre maquinasExp id'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -15,19 +15,15 @@ Hospital comment: ''!
 !Hospital methodsFor!
 
 addMaquina: maquina
-maquinasExp add: maquina.!
+	maquina setId: id.
+	maquinasExp add: maquina.
+	id := id + 1!
 
 comprar: maquinaId productos: prodIds pago: tipoPago datoCliente: unCliente
 	| maquina pago |
 	maquina := self getMaquinaPorId: maquinaId.
-	pago := Pago
-				tipo: tipoPago
-				monto: nil
-				cliente: nil.
-	^maquina
-		comprarProductos: prodIds
-		pago: pago
-		datoCliente: unCliente!
+	pago := Pago tipo: tipoPago datoCliente: unCliente.
+	^maquina comprarProductos: prodIds pago: pago!
 
 getMaquinaPorId: unId
 	^maquinasExp detect: [:each | each getId = unId] ifNone: [nil]!
@@ -37,7 +33,11 @@ getNombre
 
 initializeWith: unNombre
 	self setNombre: unNombre.
-	maquinasExp := OrderedCollection new!
+	maquinasExp := OrderedCollection new.
+	id := 1!
+
+nombre: anObject
+	nombre := anObject!
 
 setNombre: unNombre
 	(unNombre isKindOf: String) ifFalse: [self error: 'El nombre no es un string'].
@@ -49,6 +49,7 @@ comprar:productos:pago:datoCliente:!public! !
 getMaquinaPorId:!public! !
 getNombre!public! !
 initializeWith:!private! !
+nombre:!accessing!public! !
 setNombre:!public! !
 !
 

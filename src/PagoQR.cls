@@ -14,41 +14,38 @@ PagoQR comment: ''!
 
 !PagoQR methodsFor!
 
-cobrar
+cobrar: productos
 	| compra |
+	(productos allSatisfy: [:each | each isKindOf: Producto])
+		ifFalse: [self error: 'Parametro Invalido: se esperaban productos.'].
+	monto := productos inject: 0 into: [:acum :each | each getPrecio + acum].
+	compra := Compras nuevoGenerico: (productos collect: [:each | each getId]).
 	Transcript
-		show: 'Se han cobrado al link ' , link , ' un total de: ' , monto;
+		show: 'Se han cobrado al link ' , link , ' un total de: ' , monto printString;
 		cr.
-	compra := Compras nuevoGenerico.
 	TablaCompras add: compra.
+	idCompra := compra getId.
 	^compra!
 
 getLink
 	^link!
 
-initializeWith: unLink monto: unMonto
+initializeWith: unLink
 	(unLink isKindOf: String) ifFalse: [self error: 'Parametro Invalido: el link no es un string'].
-	link := unLink.
-	super initializeWith: unMonto! !
+	link := unLink.! !
 
 !PagoQR categoriesForMethods!
-cobrar!public! !
+cobrar:!public! !
 getLink!public! !
-initializeWith:monto:!private! !
+initializeWith:!private! !
 !
 
 !PagoQR class methodsFor!
 
-monto: unMonto datoCliente: unLink
-^self new
-		initializeWith: unLink
-		monto: unMonto!
-
-tipo
-	^#QR! !
+datoCliente: unLink
+	^self new initializeWith: unLink! !
 
 !PagoQR class categoriesForMethods!
-monto:datoCliente:!public! !
-tipo!public! !
+datoCliente:!public! !
 !
 
