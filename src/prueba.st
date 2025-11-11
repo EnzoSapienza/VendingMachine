@@ -1,4 +1,4 @@
-﻿|hospital cliente1 maquina1 prod1 prod2 prod3 maquina2 cafe1|
+﻿|hospital cliente1 maquina1 productosId prod1 prod2 prod3 maquina2 cafe1 respuesta1 respuesta2|
 hospital:= Hospital nombre: 'Hospital Britanico'.
 
 TablaCompras vaciarTabla.
@@ -28,11 +28,28 @@ maquina1 addSnack: prod3 getId stock: 20.
 hospital addMaquina: maquina1.
 hospital addMaquina: maquina2.
 
-(hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId. prod3 getId.} pago: #PagoCredito datoCliente: cliente1 getId) inspect.
+respuesta1:= ''.
+respuesta2:= ''.
+productosId:= OrderedCollection new.
+[respuesta2 = 'salir']
+whileFalse: [
+	[respuesta2 =  'confirmar']
+	whileFalse: [
+		respuesta1:= (Prompter prompt: 'Ingrese un ID de snack: ').
+		(respuesta1 asNumber > 0)
+			ifTrue:[productosId add: respuesta1 asNumber asInteger. Transcript show: respuesta1; cr].
+		respuesta2:= (Prompter prompt: 'Desea confirmar su compra sin añadir mas productos? Escriba "confirmar": ').
+	].
+	(hospital comprar: (maquina1 getId) productos: productosId pago: #PagoCredito datoCliente: cliente1 getId) inspect.
+	respuesta2:= (Prompter prompt: 'Desea salir y no seguir comprando? Escriba "salir": ').
 
-(hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId.} pago: #PagoQR datoCliente: 'prueba') inspect.
+].
 
-(hospital comprar: (maquina2 getId) productos: {cafe1 getId.} pago: #PagoCredito datoCliente: cliente1 getId) inspect.
+(hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId. prod3 getId.} pago: #PagoCredito datoCliente: cliente1 getId).
+
+(hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId.} pago: #PagoQR datoCliente: 'prueba').
+
+(hospital comprar: (maquina2 getId) productos: {cafe1 getId.} pago: #PagoCredito datoCliente: cliente1 getId).
 
 TablaCompras inspect.
 TablaProductos inspect.
