@@ -1,4 +1,4 @@
-﻿|hospital cliente1 maquina1 productosId prod1 prod2 prod3 maquina2 cafe1 respuesta1 respuesta2|
+﻿|hospital cliente1 maquina1 ListaDeProductos productosId prod1 prod2 prod3 maquina2 cafe1 cafe2 cafe3 respuesta1 respuesta2|
 hospital:= Hospital nombre: 'Hospital Britanico'.
 
 TablaCompras vaciarTabla.
@@ -18,6 +18,8 @@ prod2:= Snack nombre: 'Gaseosa' precio: 700 marca: 'CocaCola' peso: 100.
 prod3:= Snack nombre: 'Palitos' precio: 200 marca: 'Lays' peso: 50.
 
 cafe1:= TipoCafe nombre: 'Cappuchino' precio: 1200 azucar: 100 leche: 20 agua: 50.
+cafe2:= TipoCafe nombre: 'Cafe con leche' precio: 1000 azucar: 60 leche: 120 agua: 40.
+cafe3:= TipoCafe nombre: 'Cafe solo' precio: 700 azucar: 20 leche: 10 agua: 60.
 
 TablaProductos add: prod1; add: prod2; add: prod3; add: cafe1.
 
@@ -31,13 +33,14 @@ hospital addMaquina: maquina2.
 respuesta1:= ''.
 respuesta2:= ''.
 productosId:= OrderedCollection new.
+ListaDeProductos:= (TablaProductos getAll) inject:'' into:[:a :v| a, v getNombre, '(', v getId printString, ') '].
 [respuesta2 = 'salir']
 whileFalse: [
 	[respuesta2 =  'confirmar']
 	whileFalse: [
-		respuesta1:= (Prompter prompt: 'Ingrese un ID de snack: ').
+		respuesta1:= (Prompter prompt: ('Ingrese un ID de snack: ', ListaDeProductos)).
 		(respuesta1 asNumber > 0)
-			ifTrue:[productosId add: respuesta1 asNumber asInteger. Transcript show: respuesta1; cr].
+			ifTrue:[productosId add: respuesta1 asNumber asInteger.].
 		respuesta2:= (Prompter prompt: 'Desea confirmar su compra sin añadir mas productos? Escriba "confirmar": ').
 	].
 	(hospital comprar: (maquina1 getId) productos: productosId pago: #PagoCredito datoCliente: cliente1 getId) inspect.
@@ -47,9 +50,10 @@ whileFalse: [
 
 (hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId. prod3 getId.} pago: #PagoCredito datoCliente: cliente1 getId).
 
-(hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId.} pago: #PagoQR datoCliente: 'prueba').
+(hospital comprar: (maquina1 getId) productos: {prod1 getId. prod2 getId.} pago: #PagoQR datoCliente: 'ivan.kc.mercadopago').
 
 (hospital comprar: (maquina2 getId) productos: {cafe1 getId.} pago: #PagoCredito datoCliente: cliente1 getId).
 
 TablaCompras inspect.
 TablaProductos inspect.
+TablaMedicos inspect.
