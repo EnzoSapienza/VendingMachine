@@ -28,18 +28,26 @@ establecerTabla
 getAll
 	^Collection values.!
 
+getId: unObjeto
+^ (Collection detect: [:v | v = unObjeto]) getId.!
+
 getPorId: unId
 	self establecerTabla.
 	^Collection at: unId ifAbsent: [nil]!
 
 new
-	self error: 'Las clase ' , self class printString , ' es una clase abstracta.'! !
+	self error: 'Las clase ' , self class printString , ' es una clase abstracta.'!
+
+vaciarTabla 
+Collection := nil! !
 
 !AbstractTabla class categoriesForMethods!
 add:!public! !
 establecerTabla!private! !
 getAll!public! !
+getId:!public! !
 getPorId:!public! !
 new!public! !
+vaciarTabla!public! !
 !
 

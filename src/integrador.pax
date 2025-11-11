@@ -34,8 +34,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
+	'C:\Users\pc\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
+	'C:\Users\pc\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
 
 package!
 
@@ -90,7 +90,7 @@ Object subclass: #Producto
 	classInstanceVariableNames: ''!
 
 Object subclass: #Respuesta
-	instanceVariableNames: 'mensaje exito'
+	instanceVariableNames: 'mensaje exito compra'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

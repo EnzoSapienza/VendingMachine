@@ -39,7 +39,7 @@ comprarProductos: prodIds pago: pago
 	aguaDisponible := aguaDisponible - aguaTotal.
 	azucarDisponible := azucarDisponible - azucarTotal.
 	capsulas := capsulas - 1.
-	^Respuesta mensaje: 'Compra realizada con éxito' exito: true!
+	^Respuesta mensaje: 'Compra realizada con éxito' exito: true compra: compra!
 
 getAguaDisponible
 	^aguaDisponible!

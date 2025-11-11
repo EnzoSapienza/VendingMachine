@@ -39,7 +39,7 @@ setIdCompra:!accessing!public! !
 
 prod: unIdProd compra: unIdCompra
 	(unIdCompra isKindOf: Integer) & (unIdProd isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
-	^self new initializeWith: unIdProd producto: unIdCompra! !
+	^self new initializeWith: unIdCompra producto: unIdProd! !
 
 !ItemCompra class categoriesForMethods!
 prod:compra:!public! !

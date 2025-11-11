@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Respuesta
-	instanceVariableNames: 'mensaje exito'
+	instanceVariableNames: 'mensaje exito compra'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -18,6 +18,11 @@ initializeWith: unMensaje exito: unEstado
 	mensaje := unMensaje.
 	exito := unEstado!
 
+initializeWith: unMensaje exito: unEstado compra: unaCompra
+	mensaje := unMensaje.
+	exito := unEstado.
+	compra := unaCompra!
+
 mensaje
 	^mensaje!
 
@@ -26,6 +31,7 @@ tuvoExito
 
 !Respuesta categoriesForMethods!
 initializeWith:exito:!private! !
+initializeWith:exito:compra:!private! !
 mensaje!public! !
 tuvoExito!public! !
 !
@@ -33,9 +39,13 @@ tuvoExito!public! !
 !Respuesta class methodsFor!
 
 mensaje: unMensaje exito: unEstado
-	^self new initializeWith: unMensaje exito: unEstado! !
+	^self new initializeWith: unMensaje exito: unEstado!
+
+mensaje: unMensaje exito: unEstado compra: unaCompra
+	^self new initializeWith: unMensaje exito: unEstado compra: unaCompra! !
 
 !Respuesta class categoriesForMethods!
 mensaje:exito:!public! !
+mensaje:exito:compra:!public! !
 !
 

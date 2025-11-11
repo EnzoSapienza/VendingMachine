@@ -14,6 +14,9 @@ MaquinaSnack comment: ''!
 
 !MaquinaSnack methodsFor!
 
+addSnack: idSnack stock: unStock
+	snacksDisponibles add: (SnackDisponibles stock: unStock idSnack: idSnack)!
+
 comprarProductos: prodIds pago: pago
 	| productos compra |
 
@@ -32,8 +35,9 @@ comprarProductos: prodIds pago: pago
 	(snacksDisponibles size < productos size)
 		ifTrue: [^Respuesta mensaje: 'Stock insuficiente de snacks' exito: false].
 
+
 	"Verificar que todos los snacks pedidos estén disponibles"
-	(productos allSatisfy: [:p | snacksDisponibles includes: p])
+	(productos allSatisfy: [:p | self getSnacksDisponibles includes: (TablaProductos getId:p)])
 		ifFalse: [^Respuesta mensaje: 'Algunos snacks no están disponibles' exito: false].
 
 	"Cobrar producto"
@@ -41,14 +45,17 @@ comprarProductos: prodIds pago: pago
 
 	"Registrar compra en la máquina"
 	self addCompra: compra.
+	
+	"Añadir compra a la trabla abstracta"
+	TablaCompras add: compra.
 
 	"Actualizar stock (remover los snacks vendidos)"
 	productos do: [:p | snacksDisponibles remove: p ifAbsent: []].
 
-	^Respuesta mensaje: 'Compra realizada con éxito' exito: true!
+	^Respuesta mensaje: 'Compra realizada con éxito' exito: true compra: compra!
 
 getSnacksDisponibles
-	^snacksDisponibles select:[:v | v getStock > 0]!
+	^(snacksDisponibles select: [:v | v getStock > 0]) collect: [:v | v getSnackId]!
 
 initializeWith: unaUbicacion compras: unasCompras snacksDisponibles: snacks
 	(snacks isKindOf: OrderedCollection)
@@ -59,6 +66,7 @@ initializeWith: unaUbicacion compras: unasCompras snacksDisponibles: snacks
 	super initializeWith: unaUbicacion compras: unasCompras! !
 
 !MaquinaSnack categoriesForMethods!
+addSnack:stock:!public! !
 comprarProductos:pago:!public! !
 getSnacksDisponibles!public! !
 initializeWith:compras:snacksDisponibles:!private! !
