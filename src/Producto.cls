@@ -30,7 +30,11 @@ precio := unPrecio.!
 setId: unId
 	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
 	unId <= 0 ifTrue: [self error: 'Id invalido'].
-	id = nil ifTrue: [id := unId]! !
+	id = nil ifTrue: [id := unId]!
+
+setPrecio: unPrecio
+    (unPrecio isKindOf: Number) ifFalse: [self error: 'Precio inválido'].
+    precio := unPrecio.! !
 
 !Producto categoriesForMethods!
 getId!public! !
@@ -38,6 +42,7 @@ getNombre!public! !
 getPrecio!public! !
 initializeWithNombre:precio:!private! !
 setId:!public! !
+setPrecio:!public! !
 !
 
 !Producto class methodsFor!

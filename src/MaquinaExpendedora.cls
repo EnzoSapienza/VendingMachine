@@ -44,7 +44,11 @@ initializeWith: unaUbicacion compras: unasCompras
 setId: unId
 	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
 	unId <= 0 ifTrue: [self error: 'Id invalido'].
-	id := unId! !
+	id := unId!
+
+setUbicacion: unaUbicacion
+    (unaUbicacion isKindOf: String) ifFalse: [self error: 'Ubicación inválida'].
+    ubicacion := unaUbicacion.! !
 
 !MaquinaExpendedora categoriesForMethods!
 addCompra:!public! !
@@ -54,6 +58,7 @@ getId!public! !
 getUbicacion!public! !
 initializeWith:compras:!private! !
 setId:!public! !
+setUbicacion:!public! !
 !
 
 !MaquinaExpendedora class methodsFor!
