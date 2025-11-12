@@ -18,7 +18,6 @@ cobrar: productos
 	| compra |
 	(productos allSatisfy: [:each | each isKindOf: Producto])
 		ifFalse: [self error: 'Parametro Invalido: se esperaban productos.'].
-
 	monto := productos inject: 0 into: [:acum :each | each getPrecio + acum].
 	compra := Compras nuevoGenerico: (productos collect: [:each | each getId]).
 	Transcript
@@ -26,7 +25,11 @@ cobrar: productos
 		cr.
 	TablaCompras add: compra.
 	idCompra := compra getId.
-	^compra!
+	compra setPago: self.
+	^Respuesta
+		mensaje: 'Compra Existosa'
+		exito: true
+		compra: compra!
 
 getTarjeta
 	^numTarjeta!
@@ -34,7 +37,7 @@ getTarjeta
 initializeWith: unaTarjeta
 	(unaTarjeta isKindOf: Integer)
 		ifFalse: [self error: 'Parametro Invalido: la tarjeta no es un entero'].
-	numTarjeta := unaTarjeta.! !
+	numTarjeta := unaTarjeta! !
 
 !PagoTarjeta categoriesForMethods!
 cobrar:!public! !
@@ -48,9 +51,7 @@ datoCliente: unaTarjeta
 	^self new initializeWith: unaTarjeta!
 
 monto: unMonto datoCliente: unaTarjeta
-	^self new
-		initializeWith: unaTarjeta
-		monto: unMonto! !
+	^self new initializeWith: unaTarjeta monto: unMonto! !
 
 !PagoTarjeta class categoriesForMethods!
 datoCliente:!public! !

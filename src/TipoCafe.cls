@@ -25,6 +25,7 @@ getLecheNecesaria
 
 initializeWithNombre: unNombre precio: unPrecio azucar: azucar leche: leche agua: agua
 	"Validaciones"
+
 	(azucar isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: la azucar no es un entero'].
 	azucar > 0 ifFalse: [self error: 'Parametro Invalido: la azucar no es mayor que 0'].
 	(leche isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: la leche no es un número'].

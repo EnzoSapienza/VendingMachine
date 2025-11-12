@@ -24,8 +24,8 @@ getPrecio
 	^precio!
 
 initializeWithNombre: unNombre precio: unPrecio
-nombre := unNombre.
-precio := unPrecio.!
+	nombre := unNombre.
+	precio := unPrecio!
 
 setId: unId
 	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
@@ -33,8 +33,8 @@ setId: unId
 	id = nil ifTrue: [id := unId]!
 
 setPrecio: unPrecio
-    (unPrecio isKindOf: Number) ifFalse: [self error: 'Precio inválido'].
-    precio := unPrecio.! !
+	(unPrecio isKindOf: Number) ifFalse: [self error: 'Precio inválido'].
+	precio := unPrecio! !
 
 !Producto categoriesForMethods!
 getId!public! !
@@ -48,9 +48,8 @@ setPrecio:!public! !
 !Producto class methodsFor!
 
 new
-    self = Producto ifTrue: [
-        self error: 'La clase Producto es abstracta y no puede instanciarse' ].
-    ^super new.! !
+	self = Producto ifTrue: [self error: 'La clase Producto es abstracta y no puede instanciarse'].
+	^super new! !
 
 !Producto class categoriesForMethods!
 new!public! !

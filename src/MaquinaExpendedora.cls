@@ -47,8 +47,8 @@ setId: unId
 	id := unId!
 
 setUbicacion: unaUbicacion
-    (unaUbicacion isKindOf: String) ifFalse: [self error: 'Ubicación inválida'].
-    ubicacion := unaUbicacion.! !
+	(unaUbicacion isKindOf: String) ifFalse: [self error: 'Ubicación inválida'].
+	ubicacion := unaUbicacion! !
 
 !MaquinaExpendedora categoriesForMethods!
 addCompra:!public! !
@@ -64,9 +64,9 @@ setUbicacion:!public! !
 !MaquinaExpendedora class methodsFor!
 
 new
-    self = MaquinaExpendedora ifTrue: [
-        self error: 'La clase MaquinaExpendedora es abstracta y no puede instanciarse' ].
-    ^super new.! !
+	self = MaquinaExpendedora
+		ifTrue: [self error: 'La clase MaquinaExpendedora es abstracta y no puede instanciarse'].
+	^super new! !
 
 !MaquinaExpendedora class categoriesForMethods!
 new!public! !

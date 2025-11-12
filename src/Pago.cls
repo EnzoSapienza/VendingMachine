@@ -18,7 +18,7 @@ cobrar: anObject
 	self subclassResponsibility!
 
 getCompraId
-^idCompra!
+	^idCompra!
 
 getId
 	^id!
@@ -27,7 +27,7 @@ getMonto
 	^monto!
 
 setCompraId: unId
-idCompra := unId.!
+	idCompra := unId!
 
 setId: unId
 	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].
@@ -49,9 +49,8 @@ datoCliente: datoCliente
 	self subclassResponsibility!
 
 new
-    self = Pago ifTrue: [
-        self error: 'La clase Pago es abstracta y no puede instanciarse' ].
-    ^super new.!
+	self = Pago ifTrue: [self error: 'La clase Pago es abstracta y no puede instanciarse'].
+	^super new!
 
 tipo: tipoDePago datoCliente: unCliente
 	^(self subclasses detect: [:clase | clase name = tipoDePago]) datoCliente: unCliente! !

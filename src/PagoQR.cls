@@ -25,14 +25,18 @@ cobrar: productos
 		cr.
 	TablaCompras add: compra.
 	idCompra := compra getId.
-	^compra!
+	compra setPago: self.
+	^Respuesta
+		mensaje: 'Compra Existosa'
+		exito: true
+		compra: compra!
 
 getLink
 	^link!
 
 initializeWith: unLink
 	(unLink isKindOf: String) ifFalse: [self error: 'Parametro Invalido: el link no es un string'].
-	link := unLink.! !
+	link := unLink! !
 
 !PagoQR categoriesForMethods!
 cobrar:!public! !

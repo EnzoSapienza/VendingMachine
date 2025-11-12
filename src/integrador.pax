@@ -34,8 +34,8 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'C:\Users\pc\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
-	'C:\Users\pc\Documents\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\..\Dolphin Smalltalk 7\Core\Object Arts\Dolphin\Base\Dolphin Legacy Date & Time').
 
 package!
 
@@ -48,7 +48,7 @@ Object subclass: #AbstractTabla
 	classInstanceVariableNames: 'Collection Id'!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico fecha items'
+	instanceVariableNames: 'id cliente esGenerico fecha items pago'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -15,14 +15,14 @@ ItemCompra comment: ''!
 !ItemCompra methodsFor!
 
 getIdCompra
-    ^idCompra.!
+	^idCompra!
 
 getIdProducto
-    ^idProducto.!
+	^idProducto!
 
 initializeWith: unIdCompra producto: unIdProducto
-    idCompra := unIdCompra.
-    idProducto := unIdProducto.!
+	idCompra := unIdCompra.
+	idProducto := unIdProducto!
 
 setIdCompra: unId
 	(unId isKindOf: Integer) ifFalse: [self error: 'Id invalido'].

@@ -14,8 +14,8 @@ AbstractTabla comment: ''!
 
 !AbstractTabla class methodsFor!
 
-add:unElemento
-self subclassResponsibility.!
+add: unElemento
+	self subclassResponsibility!
 
 establecerTabla
 	"Private - Instanciar tabla si no existe"
@@ -26,10 +26,10 @@ establecerTabla
 			Id := 1]!
 
 getAll
-	^Collection values.!
+	^Collection values!
 
 getId: unObjeto
-^ (Collection detect: [:v | v = unObjeto]) getId.!
+	^(Collection detect: [:v | v = unObjeto]) getId!
 
 getPorId: unId
 	self establecerTabla.
@@ -38,8 +38,9 @@ getPorId: unId
 new
 	self error: 'Las clase ' , self class printString , ' es una clase abstracta.'!
 
-vaciarTabla 
-Collection := nil! !
+vaciarTabla
+	Collection := nil.
+	Id := 0.! !
 
 !AbstractTabla class categoriesForMethods!
 add:!public! !

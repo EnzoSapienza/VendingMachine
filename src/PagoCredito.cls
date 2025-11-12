@@ -19,7 +19,9 @@ cobrar: productos
 	(productos allSatisfy: [:each | each isKindOf: Producto])
 		ifFalse: [self error: 'Parametro Invalido: se esperaban productos.'].
 	medico := TablaMedicos getPorId: idMedico.
+	medico isNil ifTrue: [^Respuesta mensaje: 'Cuenta no encontrada' exito: false].
 	monto := productos inject: 0 into: [:acum :each | each getPrecio + acum].
+	medico getSaldo < monto ifTrue: [^Respuesta mensaje: 'Saldo insuficiente' exito: false].
 	Transcript
 		show: 'Se han cobrado al empleado ' , medico getNombre , ' un total de: ' , monto printString;
 		cr.
@@ -27,18 +29,22 @@ cobrar: productos
 	compra := Compras cliente: medico prodIds: (productos collect: [:each | each getId]).
 	TablaCompras add: compra.
 	idCompra := compra getId.
-	^compra!
+	compra setPago: self.
+	^Respuesta
+		mensaje: 'Compra Existosa'
+		exito: true
+		compra: compra!
 
 getMedicoId
 	^idMedico!
 
 initializeWith: medicoId
 	(medicoId isKindOf: Integer) ifFalse: [self error: 'Parametro Invalido: id no es un entero'].
-	idMedico := medicoId.!
+	idMedico := medicoId!
 
 setMonto: unMonto
-(unMonto isKindOf: Number) ifFalse: [self error: 'El monto no es un número'].
-monto := unMonto.! !
+	(unMonto isKindOf: Number) ifFalse: [self error: 'El monto no es un número'].
+	monto := unMonto! !
 
 !PagoCredito categoriesForMethods!
 cobrar:!public! !
@@ -50,8 +56,7 @@ setMonto:!public! !
 !PagoCredito class methodsFor!
 
 datoCliente: idMedico
-	^self new
-		initializeWith: idMedico! !
+	^self new initializeWith: idMedico! !
 
 !PagoCredito class categoriesForMethods!
 datoCliente:!public! !

@@ -21,13 +21,17 @@ getStock
 	^stock!
 
 initializeWith: unStock idSnack: unIdSnack
-stock := unStock.
-idSnack := unIdSnack.! !
+	stock := unStock.
+	idSnack := unIdSnack!
+
+stockMenosUno
+stock := stock - 1.! !
 
 !SnackDisponibles categoriesForMethods!
 getSnackId!public! !
 getStock!public! !
 initializeWith:idSnack:!private! !
+stockMenosUno!public! !
 !
 
 !SnackDisponibles class methodsFor!
@@ -35,7 +39,7 @@ initializeWith:idSnack:!private! !
 stock: unStock idSnack: anInteger
 	(unStock isKindOf: Number) ifFalse: [self error: 'Parametro Invalido: Stock no es un número'].
 	unStock > 0 ifFalse: [self error: 'Parametro Invalido: Stock no es un positivo'].
-	^self new initializeWith: unStock idSnack: anInteger.! !
+	^self new initializeWith: unStock idSnack: anInteger! !
 
 !SnackDisponibles class categoriesForMethods!
 stock:idSnack:!public! !

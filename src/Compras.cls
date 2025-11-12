@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Compras
-	instanceVariableNames: 'id cliente esGenerico fecha items'
+	instanceVariableNames: 'id cliente esGenerico fecha items pago'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -15,16 +15,19 @@ Compras comment: ''!
 !Compras methodsFor!
 
 esGenerico
-^esGenerico.!
+	^esGenerico!
 
 getCliente
-^cliente.!
+	^cliente!
 
 getFecha
-^fecha!
+	^fecha!
 
 getId
-^id.!
+	^id!
+
+getPago
+	^pago!
 
 initializeWith: unCliente generic: unBooleano prodIds: prodIds
 	unCliente = nil | (unCliente isKindOf: Medico)
@@ -45,16 +48,21 @@ setId: unId
 			[id := unId.
 			items do: [:v | v setIdCompra: id]]!
 
+setPago: unPago
+	pago := unPago!
+
 setProductos: prodIds
-items := prodIds collect:[:v | ItemCompra new ]! !
+	items := prodIds collect: [:v | ItemCompra new]! !
 
 !Compras categoriesForMethods!
 esGenerico!public! !
 getCliente!public! !
 getFecha!public! !
 getId!public! !
+getPago!accessing!public! !
 initializeWith:generic:prodIds:!private! !
 setId:!public! !
+setPago:!accessing!public! !
 setProductos:!public! !
 !
 

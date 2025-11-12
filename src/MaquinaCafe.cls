@@ -15,7 +15,7 @@ MaquinaCafe comment: ''!
 !MaquinaCafe methodsFor!
 
 comprarProductos: prodIds pago: pago
-	| productos lecheTotal aguaTotal azucarTotal compra |
+	| productos lecheTotal aguaTotal azucarTotal compra pagoRespuesta |
 	"Validar producto"
 	(prodIds allSatisfy: [:each | each isKindOf: Integer]) ifFalse: [self error: 'Id invalido'].
 	(pago isKindOf: Pago) ifFalse: [self error: 'Pago invalido'].
@@ -33,13 +33,15 @@ comprarProductos: prodIds pago: pago
 	capsulas > 0 ifFalse: [^Respuesta mensaje: 'No hay más capsulas' exito: false].
 
 	"Cobrar producto"
-	compra := pago cobrar: productos.
+	pagoRespuesta := pago cobrar: productos.
+	pagoRespuesta tuvoExito ifFalse: [^pagoRespuesta].
+	compra := pagoRespuesta getCompra.
 	self addCompra: compra.
 	lecheDisponible := lecheDisponible - lecheTotal.
 	aguaDisponible := aguaDisponible - aguaTotal.
 	azucarDisponible := azucarDisponible - azucarTotal.
 	capsulas := capsulas - 1.
-	^Respuesta mensaje: 'Compra realizada con éxito' exito: true compra: compra!
+	^pagoRespuesta!
 
 getAguaDisponible
 	^aguaDisponible!
@@ -96,7 +98,7 @@ ubicacion: unaUbicacion compras: unasCompras leche: leche capsulas: unEntero agu
 		leche: leche
 		capsulas: unEntero
 		agua: agua
-azucar: azucar! !
+		azucar: azucar! !
 
 !MaquinaCafe class categoriesForMethods!
 ubicacion:compras:leche:capsulas:agua:azucar:!public! !

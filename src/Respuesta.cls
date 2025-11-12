@@ -14,35 +14,44 @@ Respuesta comment: ''!
 
 !Respuesta methodsFor!
 
-initializeWith: unMensaje exito: unEstado
-	mensaje := unMensaje.
-	exito := unEstado!
+getCompra
+	^compra!
+
+getMensaje
+	^mensaje!
 
 initializeWith: unMensaje exito: unEstado compra: unaCompra
+	(unMensaje isKindOf: String) ifFalse: [unMensaje inspect. self error: 'El mensaje debe ser un string'].
+	(unEstado isKindOf: Boolean) ifFalse: [self error: 'El mensaje debe ser un string'].
+	unaCompra isNil | (unaCompra isKindOf: Compras)
+		ifFalse: [self error: 'El mensaje debe ser un string'].
 	mensaje := unMensaje.
 	exito := unEstado.
 	compra := unaCompra!
-
-mensaje
-	^mensaje!
 
 tuvoExito
 	^exito! !
 
 !Respuesta categoriesForMethods!
-initializeWith:exito:!private! !
+getCompra!public! !
+getMensaje!public! !
 initializeWith:exito:compra:!private! !
-mensaje!public! !
 tuvoExito!public! !
 !
 
 !Respuesta class methodsFor!
 
 mensaje: unMensaje exito: unEstado
-	^self new initializeWith: unMensaje exito: unEstado!
+	^self new
+		initializeWith: unMensaje
+		exito: unEstado
+		compra: nil!
 
 mensaje: unMensaje exito: unEstado compra: unaCompra
-	^self new initializeWith: unMensaje exito: unEstado compra: unaCompra! !
+	^self new
+		initializeWith: unMensaje
+		exito: unEstado
+		compra: unaCompra! !
 
 !Respuesta class categoriesForMethods!
 mensaje:exito:!public! !

@@ -19,7 +19,7 @@ actualizarPrecioProducto: unId nuevoPrecio: unPrecio
 	producto := TablaProductos getPorId: unId.
 	producto isNil ifTrue: [self error: 'Producto no encontrado'].
 	(unPrecio isKindOf: Number) ifFalse: [self error: 'Precio inválido'].
-	producto setPrecio: unPrecio.!
+	producto setPrecio: unPrecio!
 
 actualizarUbicacionMaquina: unId nuevaUbicacion: unaUbicacion
 	| maquina |
@@ -32,12 +32,11 @@ addMaquina: unaMaquina
 		ifFalse: [self error: 'Dato invalido: no es una máquina expendedora'].
 	unaMaquina setId: id.
 	maquinasExp add: unaMaquina.
-	id := id + 1.!
+	id := id + 1!
 
 addProducto: unProducto
-	(unProducto isKindOf: Producto)
-		ifFalse: [self error: 'Dato invalido: no es un producto'].
-	TablaProductos agregar: unProducto.!
+	(unProducto isKindOf: Producto) ifFalse: [self error: 'Dato invalido: no es un producto'].
+	TablaProductos agregar: unProducto!
 
 comprar: maquinaId productos: prodIds pago: tipoPago datoCliente: unCliente
 	| maquina pago |
@@ -49,13 +48,13 @@ eliminarMaquinaPorId: unId
 	| maquina |
 	maquina := self getMaquinaPorId: unId.
 	maquina isNil ifTrue: [self error: 'Máquina no encontrada'].
-	maquinasExp remove: maquina ifAbsent: [self error: 'Error al eliminar máquina'].!
+	maquinasExp remove: maquina ifAbsent: [self error: 'Error al eliminar máquina']!
 
 eliminarProductoPorId: unId
 	| producto |
 	producto := TablaProductos getPorId: unId.
 	producto isNil ifTrue: [self error: 'Producto no encontrado'].
-	TablaProductos eliminarPorId: unId.!
+	TablaProductos eliminarPorId: unId!
 
 getMaquinaPorId: unId
 	^maquinasExp detect: [:each | each getId = unId] ifNone: [nil]!
@@ -64,7 +63,7 @@ getMaquinas
 	^maquinasExp copy!
 
 getNombre
-^nombre!
+	^nombre!
 
 getProductoPorId: unId
 	^TablaProductos getPorId: unId!
@@ -82,7 +81,7 @@ nombre: anObject
 
 setNombre: unNombre
 	(unNombre isKindOf: String) ifFalse: [self error: 'El nombre no es un string'].
-	nombre := unNombre.! !
+	nombre := unNombre! !
 
 !Hospital categoriesForMethods!
 actualizarPrecioProducto:nuevoPrecio:!public! !
@@ -105,8 +104,7 @@ setNombre:!public! !
 !Hospital class methodsFor!
 
 nombre: unNombre
-	^self new
-		initializeWith: unNombre! !
+	^self new initializeWith: unNombre! !
 
 !Hospital class categoriesForMethods!
 nombre:!public! !

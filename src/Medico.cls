@@ -15,23 +15,23 @@ Medico comment: ''!
 !Medico methodsFor!
 
 cobrar: unMonto
-saldo := saldo - unMonto.!
+	saldo := saldo - unMonto!
 
 getId
-^id.!
+	^id!
 
 getNombre
-^nombre.!
+	^nombre!
 
 getSaldo
-    ^saldo.!
+	^saldo!
 
 initializeWith: unNombre saldo: unSaldo
 	nombre := unNombre.
 	saldo := unSaldo!
 
 printString
-	^'Nombre: ' , nombre , ' Saldo: ' , saldo printString , ' ID: ', id printString!
+	^'Nombre: ' , nombre , ' Saldo: ' , saldo printString , ' ID: ' , id printString!
 
 setId: unId
 	(unId isKindOf: Integer) ifFalse: [self error: 'Id no es un entero'].
@@ -51,9 +51,9 @@ setId:!public! !
 !Medico class methodsFor!
 
 nombre: unNombre saldo: unSaldo
-(unNombre isKindOf: String) ifFalse: [self error: 'Parametro Invalido'].
-(unSaldo isKindOf: Number) ifFalse: [self error: 'Parametro Invalido'].
-^self new initializeWith: unNombre saldo: unSaldo.! !
+	(unNombre isKindOf: String) ifFalse: [self error: 'Parametro Invalido'].
+	(unSaldo isKindOf: Number) ifFalse: [self error: 'Parametro Invalido'].
+	^self new initializeWith: unNombre saldo: unSaldo! !
 
 !Medico class categoriesForMethods!
 nombre:saldo:!public! !
