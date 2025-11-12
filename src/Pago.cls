@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Pago
-	instanceVariableNames: 'id idCompra monto'
+	instanceVariableNames: 'idCompra monto'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

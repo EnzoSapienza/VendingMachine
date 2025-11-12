@@ -86,7 +86,7 @@ respuesta := ''.
 								ifFalse: [acum]].
 
 		"Elegir productos"
-		[respuesta = 'confirmar' & (productosId size > 0)] whileFalse: 
+		[((respuesta = 'confirmar') | (respuesta isNil)) & (productosId size > 0)] whileFalse: 
 				[respuesta := Prompter
 							prompt: 'Ingrese un ID de snack: ' , ListaDeProductos , '"confirmar" para seguir'.
 				((respuesta size > 0 and: [respuesta allSatisfy: [:d | d isDigit]]) and: [respuesta asNumber > 0])
@@ -110,11 +110,11 @@ respuesta := ''.
 							asInteger].
 
 		"Realizar compra"
-		(hospital
+		 MessageBox notify: (hospital
 			comprar: maquinaAComprar getId
 			productos: productosId
 			pago: tipoPago
-			datoCliente: datoCliente) inspect.
+			datoCliente: datoCliente) getMensaje.
 		respuesta := Prompter prompt: 'Desea salir y no seguir comprando? Escriba "salir": '].
 
 "Compras de ejemplo"

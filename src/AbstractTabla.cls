@@ -26,7 +26,7 @@ establecerTabla
 			Id := 1]!
 
 getAll
-	^Collection values!
+	^Collection values sort:[:a :b | a getId < b getId]!
 
 getId: unObjeto
 	^(Collection detect: [:v | v = unObjeto]) getId!
